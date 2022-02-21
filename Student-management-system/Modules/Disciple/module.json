@@ -1,0 +1,13 @@
+{
+    "name": "Disciple",
+    "alias": "disciple",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Disciple\\Providers\\DiscipleServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
