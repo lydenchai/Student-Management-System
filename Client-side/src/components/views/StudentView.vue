@@ -4,7 +4,7 @@
     <br>
     <student-form @add-student="getStudents" v-if="hidForm"></student-form>
     <edit-student v-if="update_student" :data="studentInfo" @update="UpdateStudent" @cancel="cancel"></edit-student>
-    <student-detail v-if="ishowDetail" @back="closeDetail" :studentInfo="studentInfo"></student-detail>
+    <student-detail v-if="isShowDetail" @back="closeDetail" :studentInfo="studentInfo"></student-detail>
     <div v-else>
       <v-container>
         <template>
@@ -68,7 +68,7 @@
       studentID: null,
       update_student: false,
       studentInfo: "",
-      ishowDetail: false,
+      isShowDetail: false,
       hidForm: true,
       noData: "No data available",
       headers: [
@@ -84,11 +84,11 @@
     }),
     methods: {
       closeDetail(back) {
-        this.ishowDetail = back;
+        this.isShowDetail = back;
         this.hidForm = true;
       },
       studentDetail(studentInfo) {
-        this.ishowDetail = true;
+        this.isShowDetail = true;
         this.studentInfo = studentInfo;
         this.hidForm = false;
         console.log(studentInfo);
@@ -129,11 +129,9 @@
       },
       searchStudent() {
         if (this.searchStudentname !== "") {
-          axios
-            .get("/searchStudent/search/" + this.searchStudentname)
-            .then((res) => {
-              this.student_list = res.data;
-            });
+          axios.get("/searchStudent/search/" + this.searchStudentname).then((res) => {
+            this.student_list = res.data;
+          });
         } else {
           this.getStudents();
         }

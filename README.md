@@ -6,7 +6,7 @@
 
 - On php MyAdmin, create a new database : tasks_db
 
-- Go to /student-management-system
+- Go to /Server-side
 - Copy the .env.example to .env
 
 - on .env file, update the database name :
@@ -23,7 +23,7 @@
 
 ## FRONT
 
-- Go to /front
+- Go to /Client-side
 - Launch npm install
 - Run npm run serve to launch on developpment mode
 
@@ -35,7 +35,7 @@
 
     - On php MyAdmin, create a  new database : tasks_db
 
-    - Go to /student-management-system
+    - Go to /Server-side
     - Copy the .env.example to .env
     - on  .env file, update the database name :
     	DB_DATABASE=tasks_db
@@ -45,12 +45,12 @@
     - Launch php artisan migrate
     - Launch  php artisan key:generate
 
-    - Go to /front
+    - Go to /Client-side
     - Launch  npm install
 
 ## Other times :
 
     - git pull
 
-    - Go to /front
+    - Go to /Client-side
     - Run npm run build
