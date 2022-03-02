@@ -15,6 +15,9 @@
 - Launch composer install
 - Launch npm install
 - Launch php artisan migrate
+- Launch php artisan module:migrate Disciple ( to migrate module table)
+- Launch php artisan module:migrate Permission ( to migrate module table)
+- Launch php artisan module:migrate Score ( to migrate module table)
 
 - Launch php artisan key:generate
 - Launch php artisan storage:link ( to allow the image folder to be public)
@@ -40,10 +43,10 @@
     - on  .env file, update the database name :
     	DB_DATABASE=tasks_db
 
-    - Launch  composer install
-    - Launch  npm install
+    - Launch composer install
+    - Launch npm install
     - Launch php artisan migrate
-    - Launch  php artisan key:generate
+    - Launch php artisan key:generate
 
     - Go to /Client-side
     - Launch  npm install

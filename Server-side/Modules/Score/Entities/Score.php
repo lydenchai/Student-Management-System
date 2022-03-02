@@ -24,13 +24,14 @@ class Score extends Model
         'creatd_at',
         'updated_at'
     ];
-    
+
     protected static function newFactory()
     {
         return \Modules\Score\Database\factories\ScoreFactory::new();
     }
 
-    public function student(){
+    public function student()
+    {
         return $this->belongsTo(Student::class);
     }
 }

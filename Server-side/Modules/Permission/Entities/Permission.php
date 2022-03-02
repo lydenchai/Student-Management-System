@@ -9,16 +9,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Permission extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'student_id',
-        'startAt', 
-        'endAt', 
-        'type', 
+        'startAt',
+        'endAt',
+        'type',
         'description'
     ];
 
-    protected $hidden =[
+    protected $hidden = [
         'created_at',
         'updated_at'
     ];
@@ -28,7 +28,8 @@ class Permission extends Model
         return \Modules\Permission\Database\factories\PermissionFactory::new();
     }
 
-    public function student(){
+    public function student()
+    {
         return $this->belongsTo(Student::class);
     }
 }

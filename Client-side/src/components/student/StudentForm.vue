@@ -30,89 +30,92 @@
 </template>
 
 <script>
-  import axios from "../../axios-request.js";
-  export default {
-    emits:['add-student'],
-    data: () => ({
-      getClass: '',
-      phone: null,
-      first_name: "",
-      last_name: "",
-      sex: "",
-      image: null,
-      id: null,
-      showfilInput: true,
-      dialog: false,
-      errorMessage: "",
-    }),
-    methods: {
-      createStudent() {
-        let newStudent = new FormData();
-        newStudent.append("first_name", this.first_name);
-        newStudent.append("last_name", this.last_name);
-        newStudent.append("class", this.getClass);
-        newStudent.append("phone", this.phone);
-        newStudent.append("gender", this.sex);
-        newStudent.append("image", this.image);
-        axios.post("/students", newStudent).then((res) => {
+import axios from "../../axios-request.js";
+export default {
+  emits: ["add-student"],
+  data: () => ({
+    getClass: "",
+    phone: null,
+    first_name: "",
+    last_name: "",
+    sex: "",
+    image: null,
+    id: null,
+    showfilInput: true,
+    dialog: false,
+    errorMessage: "",
+  }),
+  methods: {
+    createStudent() {
+      let newStudent = new FormData();
+      newStudent.append("first_name", this.first_name);
+      newStudent.append("last_name", this.last_name);
+      newStudent.append("class", this.getClass);
+      newStudent.append("phone", this.phone);
+      newStudent.append("gender", this.sex);
+      newStudent.append("image", this.image);
+      axios
+        .post("/students", newStudent)
+        .then((res) => {
           console.log(res.data);
-          this.$emit('add-student', res.data);
+          this.$emit("add-student", res.data);
           this.cancelCreate();
-        }).catch((error) => {
+        })
+        .catch((error) => {
           console.log(error);
           this.errorMessage = "Oops! You must fill in all fields";
         });
-        this.phone = null;
-        this.first_name = "";
-        this.last_name = "";
-        this.sex = "";
-        this.getClass = "";
-        this.image = null;   
-        this.errorMessage = "";     
-      },
-      cancelCreate() {
-        this.dialog = false;
-        this.phone = null;
-        this.first_name = "";
-        this.last_name = "";
-        this.sex = "";
-        this.getClass = "";
-        this.image = null;
-        this.errorMessage = "";
-      },
-      getActionUser(){
-        axios.get('/getUserByID/' + this.userID).then(res=> {
-          this.userAction = res.data;
-        })
-      },
+      this.phone = null;
+      this.first_name = "";
+      this.last_name = "";
+      this.sex = "";
+      this.getClass = "";
+      this.image = null;
+      this.errorMessage = "";
     },
-    mounted() {
-      this.userID = localStorage.getItem('UserID');
-      this.getActionUser();
+    cancelCreate() {
+      this.dialog = false;
+      this.phone = null;
+      this.first_name = "";
+      this.last_name = "";
+      this.sex = "";
+      this.getClass = "";
+      this.image = null;
+      this.errorMessage = "";
     },
-  }
+    getActionUser() {
+      axios.get("/getUserByID/" + this.userID).then((res) => {
+        this.userAction = res.data;
+      });
+    },
+  },
+  mounted() {
+    this.userID = localStorage.getItem("UserID");
+    this.getActionUser();
+  },
+};
 </script>
 
 <style scoped>
-  .c-s{
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
-  .form {
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-  }
-  .a {
-    overflow-y: hidden;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-  }
+.c-s {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.form {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+.a {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
 
-  p{
-    color: red;
-    text-align: center;
-  }
+p {
+  color: red;
+  text-align: center;
+}
 </style>

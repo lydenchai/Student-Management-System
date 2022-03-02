@@ -1,11 +1,12 @@
 <?php
+
 namespace Disciple\Repositories;
+
 use Modules\Disciple\Entities\Disciple;
-use Disciple\Repositories\DiscipleRepositoryImpl;
 use Disciple\Interface\DiscipleRepositoryInterface;
 
 class DiscipleRepositoryImpl implements DiscipleRepositoryInterface
-{   
+{
     //To view all the data
     public function getAllDisciples()
     {
@@ -29,10 +30,10 @@ class DiscipleRepositoryImpl implements DiscipleRepositoryInterface
     {
         return Disciple::whereId($discipleId)->update($newDetails);
     }
-    
+
     //Delete the data
     public function deleteDisciple($discipleId)
     {
         Disciple::destroy($discipleId);
-    } 
+    }
 }

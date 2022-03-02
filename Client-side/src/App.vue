@@ -33,23 +33,23 @@ export default {
   mounted() {
     this.userID = localStorage.getItem("UserID");
     this.userID = localStorage.getItem("UserID");
-    this.UserRole = localStorage.getItem('UserRole');
-    if (this.userID != null || this.userID== "") {
+    this.UserRole = localStorage.getItem("UserRole");
+    if (this.userID != null || this.userID == "") {
       this.menubar = true;
-      if(this.UserRole != "STUDENT"){
+      if (this.UserRole != "STUDENT") {
         this.$router.push("/home");
-      }else{
-        this.$router.push('/studentInfo');
+      } else {
+        this.$router.push("/studentInfo");
       }
-    }else{
-      this.$router.push('/')
+    } else {
+      this.$router.push("/");
     }
   },
 };
 </script>
 
 <style>
-  body{
-    background: #CFD8DC;
-  }
+body {
+  background: #cfd8dc;
+}
 </style>

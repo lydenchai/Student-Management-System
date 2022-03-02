@@ -37,6 +37,7 @@
             <v-simple-table>
               <template v-slot:default>
                 <thead class="blue-grey darken-3">
+                  <th scope="col">No</th>
                   <th scope="col">Profile</th>
                   <th scope="col">Username</th>
                   <th scope="col">Email</th>
@@ -45,6 +46,7 @@
                 </thead>
                 <tbody class="text-center" style="text-align: center; align-items: center;justify-content: center; height:8vh;">
                   <tr class="data" v-for="(user, index) in userList" :key="index">
+                    <td>{{user.id}}</td>
                     <td class="img">
                       <v-img height="45" width="45" style="top:3px" :src="imageURL + user.image" class="pa-7 secondary rounded-circle d-inline-block"></v-img>
                     </td>
@@ -67,135 +69,133 @@
 </template>
 
 <script>
-  import axios from "../../axios-request.js";
-  import UserForm from "../user/UserForm.vue";
-  import EditUser from '../user/DialogEditUser.vue'
-  export default {
-    components:{
-      'user-form': UserForm,
-      'edit-user': EditUser
+import axios from "../../axios-request.js";
+import UserForm from "../user/UserForm.vue";
+import EditUser from "../user/DialogEditUser.vue";
+export default {
+  components: {
+    "user-form": UserForm,
+    "edit-user": EditUser,
+  },
+  data: () => ({
+    emits: ["edit-user"],
+    userList: [],
+    imageURL: "http://127.0.0.1:8000/storage/images/",
+    dialog: false,
+    dataStudent: "",
+    dialogDelete: false,
+    userID: null,
+    searchUsername: "",
+    show_update: false,
+    userInfo: "",
+    noData: "No data available",
+  }),
+  methods: {
+    getAllUser() {
+      axios.get("/user").then((res) => {
+        this.userList = res.data.data;
+      });
     },
-    data: () => ({
-      emits: ["edit-user"],
-      userList: [],
-      imageURL: 'http://127.0.0.1:8000/storage/images/',
-      dialog: false,
-      dataStudent: "",
-      dialogDelete: false,
-      userID: null,
-      searchUsername:'',
-      show_update: false,
-      userInfo: '',
-      noData: "No data available",
-    }),
-    methods: {
-      getAllUser() {
-        axios.get("/user").then((res) => {
-          this.userList = res.data.data;
-        });
-      },
-      deleteItem(user) {
-        this.dialogDelete = true;
-        this.userID = user.id;
-        console.log(this.userID);
-        console.log(user);
-      },
-      deleteItemConfirm() {
-        axios.delete("/deleteUser/" + this.userID).then((res) => {
-          console.log(res.data);
-          this.getAllUser();
-          this.dialogDelete = false;
-        });
-      },
-      editItem(user) {
-        this.dataStudent = user;
-        this.userInfo = user;
-        this.show_update = true;
-      },
-      UpdateUser(id, updateUser, isFalse) {
-        axios.put("/updateUser/" + id, updateUser).then((res) => {
-          console.log(res.data);
-          this.show_update = isFalse;
-          this.getAllUser();
-        });
-      },
-      cancel(isFalse){
+    deleteItem(user) {
+      this.dialogDelete = true;
+      this.userID = user.id;
+      console.log(this.userID);
+      console.log(user);
+    },
+    deleteItemConfirm() {
+      axios.delete("/deleteUser/" + this.userID).then((res) => {
+        console.log(res.data);
+        this.getAllUser();
+        this.dialogDelete = false;
+      });
+    },
+    editItem(user) {
+      this.dataStudent = user;
+      this.userInfo = user;
+      this.show_update = true;
+    },
+    UpdateUser(id, updateUser, isFalse) {
+      axios.put("/updateUser/" + id, updateUser).then((res) => {
+        console.log(res.data);
         this.show_update = isFalse;
-      },
-      searchUser(){
-        if(this.searchUsername !== ''){
-          axios.get('/searchUser/search/' + this.searchUsername).then(res=>{
-            this.userList = res.data;
-          })
-        }else{
-          this.getAllUser();
-        }
+        this.getAllUser();
+      });
+    },
+    cancel(isFalse) {
+      this.show_update = isFalse;
+    },
+    searchUser() {
+      if (this.searchUsername !== "") {
+        axios.get("/searchUser/search/" + this.searchUsername).then((res) => {
+          this.userList = res.data;
+        });
+      } else {
+        this.getAllUser();
       }
     },
-    mounted() {
-      this.getAllUser();
-    },
-  }
+  },
+  mounted() {
+    this.getAllUser();
+  },
+};
 </script>
 
 <style scoped>
+.ms {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: grey;
+}
 
-  .ms{
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    color: grey;
-  }
+body {
+  background: #cfd8dc;
+}
+section {
+  margin-top: 4vh;
+}
 
-  body{
-    background: #CFD8DC;
-  }
-  section{
-    margin-top: 4vh;
-  }
+.title {
+  margin-left: -1.5%;
+}
 
-  .title{
-    margin-left: -1.5%;
-  }
+.search {
+  margin-right: -1.5%;
+  width: 9%;
+}
 
-  .search{
-    margin-right: -1.5%;
-    width: 9%;
-  }
+.t {
+  margin-top: 3%;
+}
 
-  .t{
-    margin-top: 3%;
-  }
-  
-  .text-h5 {
-    color: white;
-  }
+.text-h5 {
+  color: white;
+}
 
-  .btn-create {
-    margin: 10px;
-  }
+.btn-create {
+  margin: 10px;
+}
 
-  v-radio {
-    display: flex;
-  }
+v-radio {
+  display: flex;
+}
 
-  thead {
-    height: 7vh;
-    font-size: 18px;
-  }
+thead {
+  height: 7vh;
+  font-size: 18px;
+}
 
-  thead th {
-    color: #fff;
-    font-size: 15px;
-  }
+thead th {
+  color: #fff;
+  font-size: 15px;
+}
 
-  tbody tr{
-    height: 20px;
-  }
+tbody tr {
+  height: 20px;
+}
 
-  #action-btn{
-    margin-bottom: 20px;
-  }
-  
+#action-btn {
+  margin-bottom: 20px;
+}
 </style>

@@ -40,106 +40,109 @@
 </template>
 
 <script>
-  import axios from '../../axios-request.js'
-  export default {
-    emits:['add-permission'],
-    data: () => ({
-      studentSelected: null,
-      startAt: null,
-      endAt: null,
-      type: null,
-      description: null,
-      imageURL: "http://127.0.0.1:8000/storage/images/",
-      leavetype: ["Authorize", "Unauthorize"],
-      studentsList: [],
-      dialog : false,
-      errorMessage: "",
-    }),
-    methods: {
-      CreatePermission(){
-        let newPermission = {
-          'student_id': this.studentSelected.id,
-          'startAt': this.startAt,
-          'endAt': this.endAt,
-          'type': this.type,
-          'description': this.description,
-        }
-        if(this.studentSelected != null){
-          axios.post('/permissions', newPermission).then(res=>{
+import axios from "../../axios-request.js";
+export default {
+  emits: ["add-permission"],
+  data: () => ({
+    studentSelected: null,
+    startAt: null,
+    endAt: null,
+    type: null,
+    description: null,
+    imageURL: "http://127.0.0.1:8000/storage/images/",
+    leavetype: ["Authorize", "Unauthorize"],
+    studentsList: [],
+    dialog: false,
+    errorMessage: "",
+  }),
+  methods: {
+    CreatePermission() {
+      let newPermission = {
+        student_id: this.studentSelected.id,
+        startAt: this.startAt,
+        endAt: this.endAt,
+        type: this.type,
+        description: this.description,
+      };
+      if (this.studentSelected != null) {
+        axios
+          .post("/permissions", newPermission)
+          .then((res) => {
             this.dialog = false;
-            this.$emit('add-permission', res.date);
-          }).catch((error) => {
+            this.$emit("add-permission", res.date);
+          })
+          .catch((error) => {
             console.log(error);
             this.errorMessage = "Oops! You must fill in all fields";
           });
-        }
-        this.studentSelected = null;
-        this.startAt = "";
-        this.endAt = "";
-        this.type = "";
-        this.description = "";
-      },
-      cancelCreate(){
-        this.dialog = false;
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem);
-          this.editedIndex = -1;
-        });
-        this.studentSelected = null;
-        this.startAt = "";
-        this.endAt = "";
-        this.type = "";
-        this.description = "";
-        this.errorMessage = "";
-      },
-      getAllStudent(){
-        axios.get('/students').then(res =>{
-          this.studentsList = res.data;
-        })
-      },
+      }
+      this.studentSelected = null;
+      this.startAt = "";
+      this.endAt = "";
+      this.type = "";
+      this.description = "";
     },
-    mounted() {
-      this.getAllStudent();
-      this.CreatePermission();
+    cancelCreate() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+      this.studentSelected = null;
+      this.startAt = "";
+      this.endAt = "";
+      this.type = "";
+      this.description = "";
+      this.errorMessage = "";
     },
-  }
+    getAllStudent() {
+      axios.get("/students").then((res) => {
+        this.studentsList = res.data;
+      });
+    },
+  },
+  mounted() {
+    this.getAllStudent();
+    this.CreatePermission();
+  },
+};
 </script>
 
 <style scoped>
+.c-p {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
 
-  .c-p{
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
+p {
+  color: red;
+  text-align: center;
+}
 
-  p{
-    color: red;
-    text-align: center;
-  }
+.create-user-btn {
+  top: 85vh;
+  float: right;
+  position: fixed;
+}
 
-  .create-user-btn {
-    top: 85vh;
-    float: right;
-    position: fixed;
-  }
+form {
+  padding: 15px;
+}
+.selected,
+input[type="date"] {
+  width: 100%;
+  background: rgba(191, 190, 190, 0.809);
+  border-radius: 2px;
+  height: 35px;
+  padding: 0 5px;
+  color: rgb(49, 47, 47);
+  margin-bottom: 10px;
+  border: none;
+}
 
-  form{
-    padding: 15px;
-  }
-  .selected, input[type=date]{
-    width: 100%;
-    background: rgba(191, 190, 190, 0.809);
-    border-radius: 2px;
-    height: 35px;
-    padding: 0 5px;
-    color: rgb(49, 47, 47);
-    margin-bottom: 10px;
-    border: none;
-  }
-
-  select{
-    border: none;
-    outline: none;
-  }
+select {
+  border: none;
+  outline: none;
+}
 </style>

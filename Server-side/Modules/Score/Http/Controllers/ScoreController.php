@@ -36,7 +36,7 @@ class ScoreController extends Controller
      * @return Renderable
      */
     public function store(Request $request): JsonResponse
-    {   
+    {
         $scoreDetails = $request->only([
             'student_id',
             'htmlcss',
@@ -46,10 +46,12 @@ class ScoreController extends Controller
             'laravel',
             'java',
         ]);
-        return response()->json([
+        return response()->json(
+            [
                 'message' => 'Score created',
                 'data' => $this->scoreRepository->createScore($scoreDetails)
-            ], Response::HTTP_CREATED
+            ],
+            Response::HTTP_CREATED
         );
     }
 

@@ -98,242 +98,243 @@
 </template>
 
 <script>
-  import axios from '../../axios-request.js'
-  import permissionForm from "../permission/PermissionForm.vue";
-  import EditPermission from '../permission/DialogEditPermission.vue'
-  import moment from "moment";
-  export default {
-    components:{
-      'permission-form': permissionForm,
-      'edit-permission': EditPermission
+import axios from "../../axios-request.js";
+import permissionForm from "../permission/PermissionForm.vue";
+import EditPermission from "../permission/DialogEditPermission.vue";
+import moment from "moment";
+export default {
+  components: {
+    "permission-form": permissionForm,
+    "edit-permission": EditPermission,
+  },
+  data: () => ({
+    update_per: false,
+    dialogDelete: false,
+    permissionList: [],
+    studentList: [],
+    permissions: [],
+    perId: null,
+    student: null,
+    startAt: null,
+    endAt: null,
+    type: null,
+    description: null,
+    perInfo: "",
+    userID: "",
+    userInfo: "",
+    imageURL: "http://127.0.0.1:8000/storage/images/",
+    studentID: "",
+    role: "",
+    noData: "No data on Permission",
+  }),
+  methods: {
+    cancel(isFalse) {
+      this.update_per = isFalse;
     },
-    data: () => ({
-      update_per: false,
-      dialogDelete: false,
-      permissionList: [],
-      studentList: [],
-      permissions: [],
-      perId: null,
-      student: null,
-      startAt: null,
-      endAt: null,
-      type: null,
-      description: null,
-      perInfo: '',
-      userID: '',
-      userInfo: '',
-      imageURL: "http://127.0.0.1:8000/storage/images/",
-      studentID: '',
-      role: '',
-      noData: "No data on Permission",
-    }),
-    methods: {  
-      cancel(isFalse){
+    updatePer(permission) {
+      this.update_per = true;
+      this.perInfo = permission;
+    },
+    EditPer(id, perData, isFalse) {
+      axios.put("/permissions/" + id, perData).then((res) => {
+        console.log(res.data);
         this.update_per = isFalse;
-      },
-      updatePer(permission){
-        this.update_per = true;
-        this.perInfo = permission;
-      },
-      EditPer(id, perData, isFalse){
-        axios.put('/permissions/'+ id , perData).then(res=>{
-          console.log(res.data);
-          this.update_per = isFalse;
-          this.getAllPermissions();
-        })
-      },
-      getAllPermissions(){
-        this.getUser();
-        axios.get('/permissions').then(res=>{
-          let store = res.data.data;
-          if(this.role == "STUDENT"){
-            for(let i of store){
-              if(this.studentID == i.student_id){
-                this.permissionList.push(i);
-              }
-            }  
-          }else{
-            this.permissionList = res.data.data;
-            this.perInfo = this.permissionList;
-          }               
-        }) 
-      },
-      getAllStudent(){
-        axios.get('/students').then(res=>{
-          this.studentList = res.data
-        })
-      },
-      deleteItem(id){
-        this.dialogDelete = true;
-        this.perId = id;
-      },
-      closeDelete(){
-        this.dialogDelete = false;
-      },
-      deleteItemConfirm(){
-        axios.delete('/permissions/'+ this.perId).then(res=>{
-          console.log(res.data);
-          this.closeDelete();
-          this.getAllPermissions();
-        })
-      },
-      getGoodDatetimeFormat(datetime) {
-        return moment(String(datetime)).format("DD-MM-Y");
-      },
-      getUser(){
-        axios.get('/getUserByID/'+ this.userID).then(res=>{
-          this.userInfo = res.data;
-          this.studentID = res.data.student_id;
-        })
-      },
+        this.getAllPermissions();
+      });
     },
-    mounted() {
-      this.role = localStorage.getItem("UserRole");
-      this.userID = localStorage.getItem('UserID');
-      this.getAllPermissions();
+    getAllPermissions() {
       this.getUser();
+      axios.get("/permissions").then((res) => {
+        let store = res.data.data;
+        if (this.role == "STUDENT") {
+          for (let i of store) {
+            if (this.studentID == i.student_id) {
+              this.permissionList.push(i);
+            }
+          }
+        } else {
+          this.permissionList = res.data.data;
+          this.perInfo = this.permissionList;
+        }
+      });
     },
-  }
+    getAllStudent() {
+      axios.get("/students").then((res) => {
+        this.studentList = res.data;
+      });
+    },
+    deleteItem(id) {
+      this.dialogDelete = true;
+      this.perId = id;
+    },
+    closeDelete() {
+      this.dialogDelete = false;
+    },
+    deleteItemConfirm() {
+      axios.delete("/permissions/" + this.perId).then((res) => {
+        console.log(res.data);
+        this.closeDelete();
+        this.getAllPermissions();
+      });
+    },
+    getGoodDatetimeFormat(datetime) {
+      return moment(String(datetime)).format("DD-MM-Y");
+    },
+    getUser() {
+      axios.get("/getUserByID/" + this.userID).then((res) => {
+        this.userInfo = res.data;
+        this.studentID = res.data.student_id;
+      });
+    },
+  },
+  mounted() {
+    this.role = localStorage.getItem("UserRole");
+    this.userID = localStorage.getItem("UserID");
+    this.getAllPermissions();
+    this.getUser();
+  },
+};
 </script>
 
 <style scoped>
-  body{
-    background: #CFD8DC;
-  }
+body {
+  background: #cfd8dc;
+}
 
-  section{
-    margin-top: 2.5vh;
-  }
+section {
+  margin-top: 2.5vh;
+}
 
-  .card-body{
-    margin-left: 0%;
-  }
+.card-body {
+  margin-left: 0%;
+}
 
-  .details{
-    height: auto;
-    background: #ffffff;
-  }
+.details {
+  height: auto;
+  background: #ffffff;
+}
 
-  .detail-info{
-    display: flex;
-    float: right;
-  }
+.detail-info {
+  display: flex;
+  float: right;
+}
 
-  .text-info{
-    width: 50%;
-    box-sizing: border-box;
-  }
+.text-info {
+  width: 50%;
+  box-sizing: border-box;
+}
 
-  .reason{
-    width: 50%;
-    box-sizing: border-box;
-  }
+.reason {
+  width: 50%;
+  box-sizing: border-box;
+}
 
-  #card{
-    width: 98%;
-  }
+#card {
+  width: 98%;
+}
 
-  .card{
-    height: 15vh;
-    background: #ECEFF1;
-    box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
-  }
+.card {
+  height: 15vh;
+  background: #eceff1;
+  box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
+}
 
-  .title{
-    width: 100%;
-    margin-left: -1%;
-  }
+.title {
+  width: 100%;
+  margin-left: -1%;
+}
 
-  .t{
-    margin-top: 3%;
-  }
+.t {
+  margin-top: 3%;
+}
 
-  .search{
-    margin-right: -1%;
-    width: 15.5%;
-  }
+.search {
+  margin-right: -1%;
+  width: 15.5%;
+}
 
-  form{
-    padding: 15px;
-  }
+form {
+  padding: 15px;
+}
 
-  .selected, input[type=date]{
-    width: 100%;
-    background: rgba(191, 190, 190, 0.809);
-    border-radius: 2px;
-    height: 35px;
-    padding: 0 5px;
-    color: rgb(49, 47, 47);
-    margin-bottom: 10px;
-    border: none;
-  }
-  
-  .btn {
-    margin-left: 60%;
-  }
+.selected,
+input[type="date"] {
+  width: 100%;
+  background: rgba(191, 190, 190, 0.809);
+  border-radius: 2px;
+  height: 35px;
+  padding: 0 5px;
+  color: rgb(49, 47, 47);
+  margin-bottom: 10px;
+  border: none;
+}
 
-  .img-and-name{
-    width: 30%;
-    display: flex;
-    margin-left: 1%;
-  }
+.btn {
+  margin-left: 60%;
+}
 
-  .imgp{
-    margin-left: -115%;
-  }
+.img-and-name {
+  width: 30%;
+  display: flex;
+  margin-left: 1%;
+}
 
-  .date-time{
-    width: 20%;
-    margin-left: 120px;
-    margin-top: 5px;
-  }
-  .type{
-    width: 30%;
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    margin-top: -0%;
-    margin-left: -3%;
-  }
-  .action{
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    width: 20%;
-    margin-left: -14%;
-    margin-top: -0.5%;
-  }
+.imgp {
+  margin-left: -115%;
+}
 
-  img{
-    width: 100px;
-    height: 105px;
-    margin-top: 3%;
-  }
+.date-time {
+  width: 20%;
+  margin-left: 120px;
+  margin-top: 5px;
+}
+.type {
+  width: 30%;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  margin-top: -0%;
+  margin-left: -3%;
+}
+.action {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  width: 20%;
+  margin-left: -14%;
+  margin-top: -0.5%;
+}
 
-  .name{
-    width: 200px;
-    height: auto;
-    margin-top: 35px;
-    margin-left: 12%;
-  }
+img {
+  width: 100px;
+  height: 105px;
+  margin-top: 3%;
+}
 
-  .u-name{
-    display: flex;
-    width: 1000px;
-    height: 30px;
-    text-transform: uppercase;
-  }
+.name {
+  width: 200px;
+  height: auto;
+  margin-top: 35px;
+  margin-left: 12%;
+}
 
-  .class{
-    width: 150px;
-    height: 30px;
-  }
+.u-name {
+  display: flex;
+  width: 1000px;
+  height: 30px;
+  text-transform: uppercase;
+}
 
-  .hidden-xs-only{
-    margin-left: 2%;
-  }
+.class {
+  width: 150px;
+  height: 30px;
+}
 
-  #action-btn{
-    margin-bottom: 20px;
-  }
+.hidden-xs-only {
+  margin-left: 2%;
+}
+
+#action-btn {
+  margin-bottom: 20px;
+}
 </style>

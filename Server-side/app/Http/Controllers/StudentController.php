@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Student;
+
 class StudentController extends Controller
 {
     /**
@@ -29,16 +31,16 @@ class StudentController extends Controller
             'class' => 'required',
             'phone' => 'required',
             'gender' => 'required',
-            'image'=>'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999'
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999'
         ]);
-        $request -> file('image')->store('public/images');
+        $request->file('image')->store('public/images');
         $student = new Student();
         $student->first_name = $request->first_name;
         $student->last_name = $request->last_name;
         $student->class = $request->class;
         $student->phone = $request->phone;
         $student->gender = $request->gender;
-        $student->image =$request->file('image')->hashName();
+        $student->image = $request->file('image')->hashName();
         $student->save();
         return response()->json([
             'Message' => 'Created',
@@ -58,12 +60,12 @@ class StudentController extends Controller
     }
 
     /**
-    * Update the specified resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -95,15 +97,15 @@ class StudentController extends Controller
     public function destroy($id)
     {
         $isDeleted = Student::destroy($id);
-        if($isDeleted == 1){
-            return response()->json(['massage'=>'Deleted'], 200);
-        }else{
-            return response()->json(['massage'=>'Not Found'], 404);
+        if ($isDeleted == 1) {
+            return response()->json(['massage' => 'Deleted'], 200);
+        } else {
+            return response()->json(['massage' => 'Not Found'], 404);
         }
     }
 
     public function searchStudent($studentname)
     {
-        return Student::where('first_name','like', '%'.$studentname.'%')->with('permission', 'disciple', 'score')->get();
+        return Student::where('first_name', 'like', '%' . $studentname . '%')->with('permission', 'disciple', 'score')->get();
     }
 }

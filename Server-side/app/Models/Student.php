@@ -22,24 +22,28 @@ class Student extends Model
         'image'
     ];
 
-    protected $hidden =[
+    protected $hidden = [
         'created_at',
         'updated_at'
     ];
 
-    public function score(){
+    public function score()
+    {
         return $this->hasMany(Score::class);
     }
-    
-    public function permission(){
+
+    public function permission()
+    {
         return $this->hasMany(Permission::class);
     }
-    
-    public function disciple(){
+
+    public function disciple()
+    {
         return $this->hasMany(Disciple::class);
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

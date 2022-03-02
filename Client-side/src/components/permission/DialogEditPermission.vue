@@ -36,84 +36,85 @@
 </template>
 
 <script>
-  import axios from '../../axios-request.js'
-  export default {
-    props: ['data'],
-    emits:['update', 'cancel'],
-    data: () => ({
-      imageURL: "http://127.0.0.1:8000/storage/images/",
-      studentSelected: null,
-      startAt: null,
-      endAt: null,
-      type: null,
-      description: null,
-      leavetype: ["Authorize", "Unauthorize"],
-      studentsList: [],
-      dialog : true,
-      perID: null,
-    }),
-    methods: {
-      cancel(){
-        this.$emit('cancel', false);
-      },
-      edit(){
-        let editPermission = {
-          'student_id': this.studentSelected.id,
-          'startAt': this.startAt,
-          'endAt': this.endAt,
-          'type': this.type,
-          'description': this.description,
-        }
-        if(this.studentSelected != null){
-            this.$emit('update',this.perID, editPermission, false);
-        }
-      },
-      getAllStudent(){
-        axios.get('/students').then(res =>{
-          this.studentsList = res.data;
-        })
-      },
+import axios from "../../axios-request.js";
+export default {
+  props: ["data"],
+  emits: ["update", "cancel"],
+  data: () => ({
+    imageURL: "http://127.0.0.1:8000/storage/images/",
+    studentSelected: null,
+    startAt: null,
+    endAt: null,
+    type: null,
+    description: null,
+    leavetype: ["Authorize", "Unauthorize"],
+    studentsList: [],
+    dialog: true,
+    perID: null,
+  }),
+  methods: {
+    cancel() {
+      this.$emit("cancel", false);
     },
-    mounted() {
-      this.getAllStudent();
-      this.studentSelected = this.data.student.first_name;
-      this.startAt = this.data.startAt;
-      this.endAt = this.data.endAt;
-      this.type = this.data.type;
-      this.description = this.data.description;
-      this.perID = this.data.id;
+    edit() {
+      let editPermission = {
+        student_id: this.studentSelected.id,
+        startAt: this.startAt,
+        endAt: this.endAt,
+        type: this.type,
+        description: this.description,
+      };
+      if (this.studentSelected != null) {
+        this.$emit("update", this.perID, editPermission, false);
+      }
     },
-  }
+    getAllStudent() {
+      axios.get("/students").then((res) => {
+        this.studentsList = res.data;
+      });
+    },
+  },
+  mounted() {
+    this.getAllStudent();
+    this.studentSelected = this.data.student.first_name;
+    this.startAt = this.data.startAt;
+    this.endAt = this.data.endAt;
+    this.type = this.data.type;
+    this.description = this.data.description;
+    this.perID = this.data.id;
+  },
+};
 </script>
 
 <style scoped>
-  .u-p{
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
-  .create-user-btn {
-    top: 85vh;
-    float: right;
-    position: fixed;
-  }
+.u-p {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.create-user-btn {
+  top: 85vh;
+  float: right;
+  position: fixed;
+}
 
-  form{
-    padding: 15px;
-  }
-  .selected, input[type=date]{
-    width: 100%;
-    background: rgba(191, 190, 190, 0.809);
-    border-radius: 2px;
-    height: 35px;
-    padding: 0 5px;
-    color: rgb(49, 47, 47);
-    margin-bottom: 10px;
-    border: none;
-  }
+form {
+  padding: 15px;
+}
+.selected,
+input[type="date"] {
+  width: 100%;
+  background: rgba(191, 190, 190, 0.809);
+  border-radius: 2px;
+  height: 35px;
+  padding: 0 5px;
+  color: rgb(49, 47, 47);
+  margin-bottom: 10px;
+  border: none;
+}
 
-  select{
-    border: none;
-    outline: none;
-  }
+select {
+  border: none;
+  outline: none;
+}
 </style>

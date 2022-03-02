@@ -55,94 +55,92 @@
 </template>
 
 <script>
-  import axios from '../../axios-request.js'
-  export default {
-    emits: ['sign-out'],
-    data(){
-      return{
-        userAction: [],
-        isSignout: false,
-        userID: null,
-        user: '',
-        imageURL: "http://127.0.0.1:8000/storage/images/",
-      }
+import axios from "../../axios-request.js";
+export default {
+  emits: ["sign-out"],
+  data() {
+    return {
+      userAction: [],
+      isSignout: false,
+      userID: null,
+      user: "",
+      imageURL: "http://127.0.0.1:8000/storage/images/",
+    };
+  },
+  watch: {
+    userID() {
+      return this.userID !== null;
     },
-    watch:{
-      userID(){
-        return this.userID !== null;
-      }
+  },
+  methods: {
+    Signout() {
+      this.$emit("sign-out", this.isSignout);
+      this.$router.push("/");
+      this.userID = null;
+      localStorage.clear();
     },
-    methods: {
-      Signout(){
-        this.$emit('sign-out', this.isSignout);
-        this.$router.push('/');
-        this.userID = null;
-        localStorage.clear();
-      },
-      getActionUser(){
-        axios.get('/getUserByID/' + this.userID).then(res=> {
-          this.userAction = res.data;
-        })
-      }
+    getActionUser() {
+      axios.get("/getUserByID/" + this.userID).then((res) => {
+        this.userAction = res.data;
+      });
     },
-    mounted() {
-      this.userID = localStorage.getItem('UserID');
-      axios.get('/users').then(res => {
-        for(let user of res.data){
-          if(user.id == this.userID){
-            this.user = user;
-          }
+  },
+  mounted() {
+    this.userID = localStorage.getItem("UserID");
+    axios.get("/user").then((res) => {
+      for (let user of res.data) {
+        if (user.id == this.userID) {
+          this.user = user;
         }
-      })
-      this.getActionUser();
-    },
-  }
+      }
+    });
+    this.getActionUser();
+  },
+};
 </script>
 
 <style scoped>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
 
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-  }
-  
-  .rounded-circle{
-    margin-top: 7px;
-    margin-left: 15px;
-  }
-  
-  #p{
-    font-size: 13px;
-    margin: 10px;
-    margin-top: 13px;
-    margin-left: 10px;
-    text-transform: uppercase;
-  }
+.rounded-circle {
+  margin-top: 7px;
+  margin-left: 15px;
+}
 
-  img{
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    margin-top: -10px;
-  }
-  
-  .navbar {
-    display: flex;
-    position: fixed;
-    z-index: 99;
-    width: 100%;
-    justify-content: space-between;
-    background-color: #40C4FF;
-  }
+#p {
+  font-size: 13px;
+  margin: 10px;
+  margin-top: 13px;
+  margin-left: 10px;
+  text-transform: uppercase;
+}
 
-  nav{
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 8px 8px, rgba(0, 0, 0, 0.23) 0px 4px 4px;
-  }
+img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  margin-top: -10px;
+}
 
-  ul{
-    display: flex;
-    float: right;
-    height: 9vh;
-  }    
+.navbar {
+  display: flex;
+  position: fixed;
+  z-index: 99;
+  width: 100%;
+  justify-content: space-between;
+}
+
+nav {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 8px 8px, rgba(0, 0, 0, 0.23) 0px 4px 4px;
+}
+
+ul {
+  display: flex;
+  float: right;
+  height: 9vh;
+}
 </style>

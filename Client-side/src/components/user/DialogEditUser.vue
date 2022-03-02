@@ -20,65 +20,64 @@
 </template>
 
 <script>
-
-  import axios from '../../axios-request.js'
-  export default {
-    props:['dataStudent', 'data'],
-    emits:['update', 'cancel'],
-    data() {
-      return {
-        dialog: true,
-        setPassword: '',
-        username: '',
-        email: '',
-        select: '',
-        items: ["SOCIAL AFFAIR", "STUDENT"],
-        studentsList : [],
-        studentSelected: null,
-        editID: null,
+import axios from "../../axios-request.js";
+export default {
+  props: ["dataStudent", "data"],
+  emits: ["update", "cancel"],
+  data() {
+    return {
+      dialog: true,
+      setPassword: "",
+      username: "",
+      email: "",
+      select: "",
+      items: ["TEACHER", "STUDENT"],
+      studentsList: [],
+      studentSelected: null,
+      editID: null,
+    };
+  },
+  methods: {
+    cancel() {
+      this.$emit("cancel", false);
+    },
+    UpdateUser() {
+      let editUser = {
+        username: this.username,
+        email: this.email,
+        password: this.setPassword,
+        role: this.select,
       };
+      this.$emit("update", this.editID, editUser, false);
     },
-    methods: {
-      cancel(){
-        this.$emit('cancel', false);
-      },
-      UpdateUser(){
-        let editUser = {
-          'username': this.username,
-          'email': this.email,
-          'password': this.setPassword,
-          'role': this.select,
+    getAllStudent() {
+      axios.get("/students").then((res) => {
+        let allStudents = res.data;
+        for (let student of allStudents) {
+          this.studentsList.push(student.first_name);
         }
-        this.$emit('update',this.editID, editUser, false);  
-      },
-      getAllStudent(){
-        axios.get('/students').then(res =>{
-          let allStudents = res.data;
-          for(let student of allStudents){
-            this.studentsList.push(student.first_name);
-          }
-        })
-      },
+      });
     },
-    mounted() {
-      this.username = this.data.username;
-      this.email = this.data.email;
-      this.select = this.data.role;
-      this.editID = this.data.id;
-      this.getAllStudent();
-      console.log(this.data);
-    },
-  };
+  },
+  mounted() {
+    this.username = this.data.username;
+    this.email = this.data.email;
+    this.select = this.data.role;
+    this.editID = this.data.id;
+    this.getAllStudent();
+    console.log(this.data);
+  },
+};
 </script>
 
 <style scoped>
-  form{
-    padding: 20px;
-  }
+form {
+  padding: 20px;
+}
 
-  .u-u{
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
+.u-u {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
 </style>

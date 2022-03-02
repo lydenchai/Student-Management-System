@@ -1,14 +1,14 @@
 <?php
+
 namespace Permission\Repositories;
 
 use App\Models\Student;
 use Modules\Permission\Entities\Permission;
-use Permission\Repositories\PermissionRepositoryImpl;
 use Permission\Interface\PermissionRepositoryInterface;
 
 
 class PermissionRepositoryImpl implements PermissionRepositoryInterface
-{   
+{
     //To view all the data
     public function getAllPermissions()
     {
@@ -32,10 +32,10 @@ class PermissionRepositoryImpl implements PermissionRepositoryInterface
     {
         return Permission::whereId($permissionId)->update($newDetails);
     }
-    
+
     //Delete the data
     public function deletePermission($permissionId)
     {
         Permission::destroy($permissionId);
-    } 
+    }
 }

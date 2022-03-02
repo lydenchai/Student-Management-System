@@ -45,7 +45,7 @@
                 <tbody class="text-center" style="text-align: center; align-items: center;justify-content: center;">
                   <tr class="data" v-for="(score, index) in scoreList" :key="index">
                     <td class="img">
-                      <v-img height="50" width="50" :src="imageURL + score.student.image" class="pa-7 secondary rounded-circle d-inline-block"></v-img>
+                      <v-img height="50" width="50" style="top:3px" :src="imageURL + score.student.image" class="pa-7 secondary rounded-circle d-inline-block"></v-img>
                     </td>
                     <td>{{ score.student.first_name }}</td>
                     <td>{{ score.student.last_name }}</td>
@@ -79,131 +79,130 @@
 </template>
 
 <script>
-  import axios from "../../axios-request.js";
-  import ScoreForm from "../score/scoreForm.vue";
-  import EditScore from '../score/scoreDialog.vue';
-  export default {
-    components:{
-      'score-form': ScoreForm,
-      'edit-score': EditScore
+import axios from "../../axios-request.js";
+import ScoreForm from "../score/scoreForm.vue";
+import EditScore from "../score/scoreDialog.vue";
+export default {
+  components: {
+    "score-form": ScoreForm,
+    "edit-score": EditScore,
+  },
+  data: () => ({
+    emits: ["edit-score"],
+    scoreList: [],
+    imageURL: "http://127.0.0.1:8000/storage/images/",
+    dialog: false,
+    dataStudent: "",
+    dialogDelete: false,
+    searchUsername: "",
+    show_update: false,
+    noData: "No data available",
+    scoreID: "",
+    scoreInfo: "",
+  }),
+  methods: {
+    editItem(score) {
+      this.scoreInfo = score;
+      this.show_update = true;
     },
-    data: () => ({
-      emits: ["edit-score"],
-      scoreList: [],
-      imageURL: "http://127.0.0.1:8000/storage/images/",
-      dialog: false,
-      dataStudent: "",
-      dialogDelete: false,
-      searchUsername:'',
-      show_update: false,
-      noData: "No data available",
-      scoreID : '',
-      scoreInfo: ''
-    }),
-    methods: {
-      editItem(score){
-        this.scoreInfo = score;
-        this.show_update = true;
-      },
-      UpdateScore(id, edited, isFalse){
-        axios.put('/score/'+ id, edited).then(res=>{
-          console.log(res.data.data);
-          this.show_update = isFalse;
-          this.getAllScores();
-        })
-      },
-      cancel(isFalse){
+    UpdateScore(id, edited, isFalse) {
+      axios.put("/score/" + id, edited).then((res) => {
+        console.log(res.data.data);
         this.show_update = isFalse;
-      },
-      getAllScores(){
-        axios.get('/score').then(res=>{
-          this.scoreList = res.data.data;
-        })
-      },
-      deleteItem(score){
-        this.dialogDelete = true;
-        this.scoreID = score.id;
-        console.log(this.scoreID);
-      },
-      deleteItemConfirm(){
-        axios.delete('/score/'+ this.scoreID).then(res=>{
-          console.log(res.data);
-          this.dialogDelete = false;
-          this.getAllScores();
-        })
-      },
+        this.getAllScores();
+      });
     },
-    mounted() {
-      this.getAllScores();
-    }
-  }
+    cancel(isFalse) {
+      this.show_update = isFalse;
+    },
+    getAllScores() {
+      axios.get("/score").then((res) => {
+        this.scoreList = res.data.data;
+      });
+    },
+    deleteItem(score) {
+      this.dialogDelete = true;
+      this.scoreID = score.id;
+      console.log(this.scoreID);
+    },
+    deleteItemConfirm() {
+      axios.delete("/score/" + this.scoreID).then((res) => {
+        console.log(res.data);
+        this.dialogDelete = false;
+        this.getAllScores();
+      });
+    },
+  },
+  mounted() {
+    this.getAllScores();
+  },
+};
 </script>
 
 <style scoped>
+.ms {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: grey;
+}
 
-  .ms{
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    color: grey;
-  }
+body {
+  background: #cfd8dc;
+}
+section {
+  margin-top: 2.5vh;
+}
 
-  body{
-    background: #CFD8DC;
-  }
-  section{
-    margin-top: 2.5vh;
-  }
+.title {
+  margin-left: -1.5%;
+}
 
-  .title{
-    margin-left: -1.5%;
-  }
+.search {
+  margin-right: -1.5%;
+  width: 9%;
+}
 
-  .search{
-    margin-right: -1.5%;
-    width: 9%;
-  }
+.t {
+  margin-top: 3%;
+}
 
-  .t{
-    margin-top: 3%;
-  }
-  
-  .text-h5 {
-    color: white;
-  }
+.text-h5 {
+  color: white;
+}
 
-  .btn-create {
-    margin: 10px;
-  }
+.btn-create {
+  margin: 10px;
+}
 
-  v-radio {
-    display: flex;
-  }
+v-radio {
+  display: flex;
+}
 
-  thead {
-    height: 7vh;
-    font-size: 18px;
-  }
+thead {
+  height: 7vh;
+  font-size: 18px;
+}
 
-  thead th {
-    color: #fff;
-    font-size: 15px;
-  }
+thead th {
+  color: #fff;
+  font-size: 15px;
+}
 
-  tbody tr{
-    height: 9vh;
-  }
+tbody tr {
+  height: 20px;
+}
 
-  #action-btn{
-    margin-bottom: 20px;
-  }
+#action-btn {
+  margin-bottom: 20px;
+}
 
-  #edit{
-    color: rgb(59, 114, 252);
-  }
+#edit {
+  color: rgb(59, 114, 252);
+}
 
-  #delete{
-    color: rgb(250, 56, 59);
-  }
+#delete {
+  color: rgb(250, 56, 59);
+}
 </style>

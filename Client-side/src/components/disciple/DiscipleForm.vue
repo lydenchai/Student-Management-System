@@ -37,84 +37,87 @@
 </template>
 
 <script>
-  import axios from '../../axios-request.js'
-  export default {
-    emits:['add-disciple'],
-    data: () => ({
-      studentSelected:null,
-      date:null,
-      type: null,
-      description: null,
-      leavetype: ["Notation", "Oral warning", "Warning letter", "Termination"],
-      studentsList: [],
-      dialog : false,
-      errorMessage: "",
-      imageURL: "http://127.0.0.1:8000/storage/images/",
-    }),
-    methods: {
-      CreateDisciple(){
-        let newDisciple = {
-          'student_id': this.studentSelected.id,
-          'dateWn': this.date,
-          'type': this.type,
-          'description': this.description,
-        }
-        if(this.studentSelected != null){
-          axios.post('/disciples', newDisciple).then(res=>{
+import axios from "../../axios-request.js";
+export default {
+  emits: ["add-disciple"],
+  data: () => ({
+    studentSelected: null,
+    date: null,
+    type: null,
+    description: null,
+    leavetype: ["Notation", "Oral warning", "Warning letter", "Termination"],
+    studentsList: [],
+    dialog: false,
+    errorMessage: "",
+    imageURL: "http://127.0.0.1:8000/storage/images/",
+  }),
+  methods: {
+    CreateDisciple() {
+      let newDisciple = {
+        student_id: this.studentSelected.id,
+        dateWn: this.date,
+        type: this.type,
+        description: this.description,
+      };
+      if (this.studentSelected != null) {
+        axios
+          .post("/disciples", newDisciple)
+          .then((res) => {
             console.log(res.data);
             this.dialog = false;
-            this.$emit('add-disciple', res.data);
-          }).catch((error) => {
+            this.$emit("add-disciple", res.data);
+          })
+          .catch((error) => {
             console.log(error);
             this.errorMessage = "Oops! You must fill in all fields";
           });
-        }
-        this.studentSelected = null;
-        this.date = "";
-        this.type = "";
-        this.description = "";
-      },
-      getAllStudent(){
-        axios.get('/students').then(res =>{
-          this.studentsList = res.data;
-        })
-      },
+      }
+      this.studentSelected = null;
+      this.date = "";
+      this.type = "";
+      this.description = "";
     },
-    mounted() {
-      this.getAllStudent();
+    getAllStudent() {
+      axios.get("/students").then((res) => {
+        this.studentsList = res.data;
+      });
     },
-  }
+  },
+  mounted() {
+    this.getAllStudent();
+  },
+};
 </script>
 
 <style scoped>
-  h1{
-      margin-left: 18%;
-  }
-  
-  .create-user-btn {
-    top: 85vh;
-    float: right;
-    position: fixed;
-  }
+h1 {
+  margin-left: 18%;
+}
 
-  form{
-    padding: 15px;
-  }
+.create-user-btn {
+  top: 85vh;
+  float: right;
+  position: fixed;
+}
 
-  .selected, input[type=date]{
-    width: 100%;
-    background: rgba(191, 190, 190, 0.809);
-    border-radius: 2px;
-    height: 35px;
-    padding: 0 5px;
-    color: rgb(49, 47, 47);
-    margin-bottom: 10px;
-    border: none;
-  }
+form {
+  padding: 15px;
+}
 
-  p{
-    color: red;
-    text-align: center;
-  }
+.selected,
+input[type="date"] {
+  width: 100%;
+  background: rgba(191, 190, 190, 0.809);
+  border-radius: 2px;
+  height: 35px;
+  padding: 0 5px;
+  color: rgb(49, 47, 47);
+  margin-bottom: 10px;
+  border: none;
+}
 
+p {
+  color: red;
+  text-align: center;
+}
 </style>

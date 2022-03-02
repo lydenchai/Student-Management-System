@@ -50,124 +50,128 @@
 </template>
 
 <script>
-  import axios from '../../axios-request.js'
-  export default {
-    emits:['add-score'],
-    data: () => ({
-      studentSelected:null,
-      studentsList: [],
-      dialog : false,
-      htmlcss: null,
-      javascript: null,
-      python: null,
-      php: null,
-      laravel: null,
-      java: null,
-      errorMessage: "",
-      combobox: null,
-      imageURL: "http://127.0.0.1:8000/storage/images/",
-    }),
-    methods: {
-      getAllStudent(){
-        axios.get('/students').then(res =>{
-          this.studentsList = res.data;
-        })
-      },
-      createStudentScore(){
-        let newScore = {
-          'student_id': this.studentSelected.id,
-          'htmlcss': this.htmlcss,
-          'javascript': this.javascript,
-          'python': this.python,
-          'php': this.php,
-          'laravel': this.laravel,
-          'java': this.java,
-        }
-        axios.post('/score', newScore).then(res=>{
+import axios from "../../axios-request.js";
+export default {
+  emits: ["add-score"],
+  data: () => ({
+    studentSelected: null,
+    studentsList: [],
+    dialog: false,
+    htmlcss: null,
+    javascript: null,
+    python: null,
+    php: null,
+    laravel: null,
+    java: null,
+    errorMessage: "",
+    combobox: null,
+    imageURL: "http://127.0.0.1:8000/storage/images/",
+  }),
+  methods: {
+    getAllStudent() {
+      axios.get("/students").then((res) => {
+        this.studentsList = res.data;
+      });
+    },
+    createStudentScore() {
+      let newScore = {
+        student_id: this.studentSelected.id,
+        htmlcss: this.htmlcss,
+        javascript: this.javascript,
+        python: this.python,
+        php: this.php,
+        laravel: this.laravel,
+        java: this.java,
+      };
+      axios
+        .post("/score", newScore)
+        .then((res) => {
           this.$emit("add-score", res.data);
           this.dialog = false;
-        }).catch((error) => {
+        })
+        .catch((error) => {
           console.log(error);
           this.errorMessage = "Oops! You must fill in all fields";
         });
-        this.htmlcss = "";
-        this.javascript = "";
-        this.python = "";
-        this.php = "";
-        this.laravel = "";
-        this.java = "";
-        this.combobox = "";
-        this.studentSelected = null;
-      },
-      cancelCreate(){
-        this.dialog = false;
-        this.errorMessage = "";
-        this.htmlcss = "";
-        this.javascript = "";
-        this.python = "";
-        this.php = "";
-        this.laravel = "";
-        this.java = "";
-        this.studentSelected = null;
-        this.combobox = "";
-
-      },
+      this.htmlcss = "";
+      this.javascript = "";
+      this.python = "";
+      this.php = "";
+      this.laravel = "";
+      this.java = "";
+      this.combobox = "";
+      this.studentSelected = null;
+      this.errorMessage = "";
     },
-    mounted() {
-      this.getAllStudent();
+    cancelCreate() {
+      this.dialog = false;
+      this.errorMessage = "";
+      this.htmlcss = "";
+      this.javascript = "";
+      this.python = "";
+      this.php = "";
+      this.laravel = "";
+      this.java = "";
+      this.studentSelected = null;
+      this.combobox = "";
     },
-  }
+  },
+  mounted() {
+    this.getAllStudent();
+  },
+};
 </script>
 
 <style scoped>
-  h1{
-      margin-left: 18%;
-  }
-  
-  .create-user-btn {
-    top: 85vh;
-    float: right;
-    position: fixed;
-  }
+h1 {
+  margin-left: 18%;
+}
 
-  form{
-    padding: 15px;
-    width: 100%;
-  }
+.create-user-btn {
+  top: 85vh;
+  float: right;
+  position: fixed;
+}
 
-  p{
-    color: red;
-    text-align: center;
-  }
+form {
+  padding: 15px;
+  width: 100%;
+}
 
-  .selected,input[type=number]{
-    width: 100%;
-    background: rgba(191, 190, 190, 0.809);
-    border-radius: 2px;
-    height: 35px;
-    padding: 0 5px;
-    color: rgb(49, 47, 47);
-    margin-bottom: 10px;
-    border: none;
-  }
+p {
+  color: red;
+  text-align: center;
+}
 
-  .s-student{
-    padding: 10px;
-  }
+.selected,
+input[type="number"] {
+  width: 100%;
+  background: rgba(191, 190, 190, 0.809);
+  border-radius: 2px;
+  height: 35px;
+  padding: 0 5px;
+  color: rgb(49, 47, 47);
+  margin-bottom: 10px;
+  border: none;
+}
 
-  .t-input{
-    display: flex;
-  }
+.s-student {
+  padding: 10px;
+}
 
-  .left,
-  .right{
-    padding: 10px;
-    width: 50%;
-  }
+.t-input {
+  display: flex;
+}
 
-  input, select{
-    border: none;
-    outline: none;
-  }
+.left,
+.right {
+  padding: 10px;
+  width: 50%;
+}
 
+input,
+select {
+  border: none;
+  outline: none;
+}
 </style>

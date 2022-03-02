@@ -1,14 +1,14 @@
 <?php
+
 namespace Score\Repositories;
 
 use App\Models\Student;
 use Modules\Score\Entities\Score;
-use Score\Repositories\ScoreRepositoryImpl;
 use Score\Interface\ScoreRepositoryInterface;
 
 
 class ScoreRepositoryImpl implements ScoreRepositoryInterface
-{   
+{
     //To view all the data
     public function getAllScores()
     {
@@ -32,10 +32,10 @@ class ScoreRepositoryImpl implements ScoreRepositoryInterface
     {
         return Score::whereId($scoreId)->update($newDetails);
     }
-    
+
     //Delete the data
     public function deleteScore($scoreId)
     {
         Score::destroy($scoreId);
-    } 
+    }
 }

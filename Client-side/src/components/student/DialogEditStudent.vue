@@ -25,60 +25,60 @@
 </template>
 
 <script>
-  export default {
-    props: ['data'],
-    emits:['update', 'cancel'],
-    data: () => ({
-      getClass: "",
-      phone: null,
-      first_name: "",
-      last_name: "",
-      sex: "",
-      id: null,
-      dialog: true,
-    }),
-    methods: {
-      cancel(){
-        this.$emit('cancel', false);
-      },
-      editStudent(){
-        let editStudent = {
-          'first_name': this.first_name,
-          'last_name': this.last_name,
-          'class': this.getClass,
-          'phone': this.phone,
-          'gender': this.sex,
-        }
-        this.$emit('update',this.id, editStudent, false);
-      },
+export default {
+  props: ["data"],
+  emits: ["update", "cancel"],
+  data: () => ({
+    getClass: "",
+    phone: null,
+    first_name: "",
+    last_name: "",
+    sex: "",
+    id: null,
+    dialog: true,
+  }),
+  methods: {
+    cancel() {
+      this.$emit("cancel", false);
     },
-    mounted() {
-      this.userID = localStorage.getItem('UserID');
-      this.id = this.data.id;
-      this.first_name = this.data.first_name;
-      this.last_name = this.data.last_name;
-      this.getClass = this.data.class;
-      this.phone = this.data.phone;
-      this.sex = this.data.gender;
+    editStudent() {
+      let editStudent = {
+        first_name: this.first_name,
+        last_name: this.last_name,
+        class: this.getClass,
+        phone: this.phone,
+        gender: this.sex,
+      };
+      this.$emit("update", this.id, editStudent, false);
     },
-  }
+  },
+  mounted() {
+    this.userID = localStorage.getItem("UserID");
+    this.id = this.data.id;
+    this.first_name = this.data.first_name;
+    this.last_name = this.data.last_name;
+    this.getClass = this.data.class;
+    this.phone = this.data.phone;
+    this.sex = this.data.gender;
+  },
+};
 </script>
 
 <style scoped>
-  .u-s{
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
-  .form {
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-  }
-   .a {
-    overflow-y: hidden;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-  }
+.u-s {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.form {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+.a {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
 </style>

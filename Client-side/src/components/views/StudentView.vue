@@ -49,150 +49,156 @@
 </template>
 
 <script>
-  import axios from "../../axios-request.js";
-  import StudentDetail from "./StudentDetail.vue";
-  import StudentForm from "../student/StudentForm.vue";
-  import EditStudent from "../student/DialogEditStudent.vue";
-  export default {
-    components: {
-      "student-form": StudentForm,
-      "edit-student": EditStudent,
-      "student-detail": StudentDetail,
+import axios from "../../axios-request.js";
+import StudentDetail from "./StudentDetail.vue";
+import StudentForm from "../student/StudentForm.vue";
+import EditStudent from "../student/DialogEditStudent.vue";
+export default {
+  components: {
+    "student-form": StudentForm,
+    "edit-student": EditStudent,
+    "student-detail": StudentDetail,
+  },
+  data: () => ({
+    imageURL: "http://127.0.0.1:8000/storage/images/",
+    loading: true,
+    student_list: [],
+    searchStudentname: "",
+    dialogDelete: false,
+    studentID: null,
+    update_student: false,
+    studentInfo: "",
+    isShowDetail: false,
+    hidForm: true,
+    noData: "No data available",
+    headers: [
+      { text: "No", align: "start", sortable: false, value: "id" },
+      { text: "Profile", value: "image" },
+      { text: "First Name", value: "first_name" },
+      { text: "Last name", value: "last_name" },
+      { text: "Class", value: "class" },
+      { text: "Gender", value: "gender" },
+      { text: "Phone", value: "phone" },
+      { text: "Details", value: "showDetails" },
+      { text: "Actions", value: "actions", sortable: false },
+    ],
+  }),
+  methods: {
+    closeDetail(back) {
+      this.isShowDetail = back;
+      this.hidForm = true;
     },
-    data: () => ({
-      imageURL: 'http://127.0.0.1:8000/storage/images/',
-      loading: true,
-      student_list: [],
-      searchStudentname: "",
-      dialogDelete: false,
-      studentID: null,
-      update_student: false,
-      studentInfo: "",
-      isShowDetail: false,
-      hidForm: true,
-      noData: "No data available",
-      headers: [
-        { text: 'Profile', align: 'start', sortable: false, value: 'image'},
-        { text: 'First Name', value: 'first_name'},
-        { text: 'Last name', value: 'last_name'},
-        { text: 'Class', value: 'class'},
-        { text: 'Gender', value: 'gender'},
-        { text: 'Phone', value: 'phone'},
-        { text: 'Details', value: 'showDetails'},
-        { text: 'Actions', value: 'actions', sortable: false},
-      ],
-    }),
-    methods: {
-      closeDetail(back) {
-        this.isShowDetail = back;
-        this.hidForm = true;
-      },
-      studentDetail(studentInfo) {
-        this.isShowDetail = true;
-        this.studentInfo = studentInfo;
-        this.hidForm = false;
-        console.log(studentInfo);
-      },
-      editItem(students) {
-        this.update_student = true;
-        this.studentInfo = students;
-      },
-      UpdateStudent(id, editStudent, isFalse) {
-        axios.put("/students/" + id, editStudent).then((res) => {
-          console.log(res.data);
-          this.update_student = isFalse;
-          this.getStudents();
-        });
-      },
-      getStudents() {
-        axios.get("/students").then((res) => {
-          this.student_list = res.data;
-          this.loading = false
-        }).catch(error=>{
-            this.loading = false;
-            console.log(error);
-        });
-      },
-      deleteItem(student) {
-        this.dialogDelete = true;
-        this.studentID = student.id;
-      },
-      deleteItemConfirm() {
-        axios.delete("/students/" + this.studentID).then((res) => {
-          console.log(res.data);
-          this.getStudents();
-          this.dialogDelete = false;
-        });
-      },
-      cancel(isFalse) {
+    studentDetail(studentInfo) {
+      this.isShowDetail = true;
+      this.studentInfo = studentInfo;
+      this.hidForm = false;
+      console.log(studentInfo);
+    },
+    editItem(students) {
+      this.update_student = true;
+      this.studentInfo = students;
+    },
+    UpdateStudent(id, editStudent, isFalse) {
+      axios.put("/students/" + id, editStudent).then((res) => {
+        console.log(res.data);
         this.update_student = isFalse;
-      },
-      searchStudent() {
-        if (this.searchStudentname !== "") {
-          axios.get("/searchStudent/search/" + this.searchStudentname).then((res) => {
+        this.getStudents();
+      });
+    },
+    getStudents() {
+      axios
+        .get("/students")
+        .then((res) => {
+          this.student_list = res.data;
+          this.loading = false;
+        })
+        .catch((error) => {
+          this.loading = false;
+          console.log(error);
+        });
+    },
+    deleteItem(student) {
+      this.dialogDelete = true;
+      this.studentID = student.id;
+    },
+    deleteItemConfirm() {
+      axios.delete("/students/" + this.studentID).then((res) => {
+        console.log(res.data);
+        this.getStudents();
+        this.dialogDelete = false;
+      });
+    },
+    cancel(isFalse) {
+      this.update_student = isFalse;
+    },
+    searchStudent() {
+      if (this.searchStudentname !== "") {
+        axios
+          .get("/searchStudent/search/" + this.searchStudentname)
+          .then((res) => {
             this.student_list = res.data;
           });
-        } else {
-          this.getStudents();
-        }
-      },
+      } else {
+        this.getStudents();
+      }
     },
-    mounted() {
-      this.getStudents();
-    },
-  };
+  },
+  mounted() {
+    this.getStudents();
+  },
+};
 </script>
 
 <style scoped>
-  .ms {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    color: grey;
-  }
-  section {
-    margin-top: 4vh;
-  }
-  .text-h5 {
-    color: white;
-  }
-  .btn-create {
-    margin: 10px;
-  }
-  v-radio {
-    display: flex;
-  }
-  thead {
-    height: 7vh;
-    font-size: 18px;
-  }
-  thead th {
-    color: #fff;
-    font-size: 15px;
-  }
-  tbody tr {
-    height: 9vh;
-    cursor: pointer;
-  }
-  .title {
-    margin-left: -1.5%;
-  }
-  .t {
-    margin-top: 3%;
-    margin-left: -1.5%;
-  }
-  .search {
-    margin-right: -1.5%;
-    width: 11%;
-  }
-  #action-btn {
-    margin-bottom: 20px;
-  }
-  #edit {
-    color: rgb(59, 114, 252);
-  }
-  #delete {
-    color: rgb(250, 56, 59);
-  }
+.ms {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: grey;
+}
+section {
+  margin-top: 4vh;
+}
+.text-h5 {
+  color: white;
+}
+.btn-create {
+  margin: 10px;
+}
+v-radio {
+  display: flex;
+}
+thead {
+  height: 7vh;
+  font-size: 18px;
+}
+thead th {
+  color: #fff;
+  font-size: 15px;
+}
+tbody tr {
+  height: 9vh;
+  cursor: pointer;
+}
+.title {
+  margin-left: -1.5%;
+}
+.t {
+  margin-top: 3%;
+  margin-left: -1.5%;
+}
+.search {
+  margin-right: -1.5%;
+  width: 11%;
+}
+#action-btn {
+  margin-bottom: 20px;
+}
+#edit {
+  color: rgb(59, 114, 252);
+}
+#delete {
+  color: rgb(250, 56, 59);
+}
 </style>

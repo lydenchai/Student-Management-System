@@ -36,7 +36,7 @@ class PermissionController extends Controller
      * @return Renderable
      */
     public function store(Request $request): JsonResponse
-    {   
+    {
         $permissionDetails = $request->only([
             'student_id',
             'startAt',
@@ -44,10 +44,12 @@ class PermissionController extends Controller
             'type',
             'description',
         ]);
-        return response()->json([
+        return response()->json(
+            [
                 'message' => 'Permission created',
                 'data' => $this->permissionRepository->createPermission($permissionDetails)
-            ], Response::HTTP_CREATED
+            ],
+            Response::HTTP_CREATED
         );
     }
 
@@ -100,5 +102,4 @@ class PermissionController extends Controller
             'message' => 'Permission deleted'
         ], Response::HTTP_NO_CONTENT);
     }
-
 }

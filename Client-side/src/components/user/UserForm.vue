@@ -30,102 +30,105 @@
 </template>
 
 <script>
-  import axios from "../../axios-request.js";
-  export default {
-    emits: ["add-user"],
-    data: () => ({
-      studentsList: [],
-      studentSelected: "",
-      showStudents: false,
-      dialog: false,
-      username: "",
-      email: "",
-      role: '',
-      select: null,
-      items: ["SOCIAL AFFAIR", "STUDENT"],
-      picture: null,
-      setPassword: "",
-      student_id: '',
-      errorMessage: ''
-    }),
-    methods: {
-      AddNewUser() {
-        let newUser = new FormData();
-        newUser.append("username", this.username);
-        newUser.append("email", this.email);
-        newUser.append("password", this.setPassword);
-        newUser.append("role", this.role);
-        newUser.append("image", this.picture);
-        newUser.append("student_id", this.student_id);
-        axios.post("/register", newUser).then((res) => {
+import axios from "../../axios-request.js";
+export default {
+  emits: ["add-user"],
+  data: () => ({
+    studentsList: [],
+    studentSelected: "",
+    showStudents: false,
+    dialog: false,
+    username: "",
+    email: "",
+    role: "",
+    select: null,
+    items: ["TEACHER", "STUDENT"],
+    picture: null,
+    setPassword: "",
+    student_id: "",
+    errorMessage: "",
+  }),
+  methods: {
+    AddNewUser() {
+      let newUser = new FormData();
+      newUser.append("username", this.username);
+      newUser.append("email", this.email);
+      newUser.append("password", this.setPassword);
+      newUser.append("role", this.role);
+      newUser.append("image", this.picture);
+      newUser.append("student_id", this.student_id);
+      axios
+        .post("/register", newUser)
+        .then((res) => {
           this.$emit("add-user", res.data);
           console.log(res.data);
           this.dialog = false;
-        }).catch((error) => {
+        })
+        .catch((error) => {
           console.log(error);
           this.errorMessage = "Oops! You must fill in all fields";
         });
-        this.username = "";
-        this.email = "";
-        this.setPassword = "";
-        this.role = "";
-        this.picture = "";
-        this.student_id = "";
-        this.errorMessage = "";
-      },
-      cancel() {
-        this.dialog = false;
-        this.username = "";
-        this.email = "";
-        this.setPassword = "";
-        this.select = "";
-        this.picture = "";
-        this.student_id = "";
-        this.errorMessage = "";
-      },
-      getAllStudent() {
-        axios.get("/students").then((res) => {
-          this.studentsList = res.data;
-        });
-      },
+      this.username = "";
+      this.email = "";
+      this.setPassword = "";
+      this.role = "";
+      this.picture = "";
+      this.student_id = "";
+      this.errorMessage = "";
     },
-    mounted() {
-      this.getAllStudent();
+    cancel() {
+      this.dialog = false;
+      this.username = "";
+      this.email = "";
+      this.setPassword = "";
+      this.select = "";
+      this.picture = "";
+      this.student_id = "";
+      this.errorMessage = "";
     },
-  };
+    getAllStudent() {
+      axios.get("/students").then((res) => {
+        this.studentsList = res.data;
+      });
+    },
+  },
+  mounted() {
+    this.getAllStudent();
+  },
+};
 </script>
 
 <style scoped>
-  .c-u{
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
-  .create-user-btn {
-    top: 85vh;
-    float: right;
-    position: fixed;
-  }
+.c-u {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.create-user-btn {
+  top: 85vh;
+  float: right;
+  position: fixed;
+}
 
-  p{
-    color: red;
-    text-align: center;
-  }
+p {
+  color: red;
+  text-align: center;
+}
 
-  form {
-    padding: 20px;
-  }
+form {
+  padding: 20px;
+}
 
-  select {
-    margin-left: 30px;
-    border: 1px solid rgb(51, 50, 50);
-    padding: 2px;
-    border-radius: 3px;
-    width: 94%;
-  }
+select {
+  margin-left: 30px;
+  border: 1px solid rgb(51, 50, 50);
+  padding: 2px;
+  border-radius: 3px;
+  width: 94%;
+}
 
-  .v-select{
-    border: none;
-    outline: none;
-  }
+.v-select {
+  border: none;
+  outline: none;
+}
 </style>

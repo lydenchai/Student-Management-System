@@ -46,99 +46,99 @@
 </template>
 
 <script>
-  import axios from '../../axios-request.js'
-  export default {
-    props: ['data'],
-    emits:['edit-score', 'cancel'],
-    data: () => ({
-      studentSelected:null,
-      java: 0,
-      javascript: 0,
-      python: 0,
-      studentsList: [],
-      dialog : true,
-      htmlcss: 0,
-      laravel: 0,
-      php: 0,
-      scoreID: '',
-      imageURL: "http://127.0.0.1:8000/storage/images/",
-    }),
-    methods: {
-      getAllStudent(){
-        axios.get('/students').then(res =>{
-          this.studentsList = res.data;
-        })
-      },
-      updateScore(){
-        let editScore = {
-          'student_id': this.studentSelected.id,
-          'java': this.java,
-          'javascript': this.javascript,
-          'python': this.python,
-          'htmlcss': this.htmlcss,
-          'laravel': this.laravel,
-          'php': this.php,
-        }
-         if(this.studentSelected != null){
-            this.$emit('edit-score',this.scoreID, editScore, false);
-        }
-      },
-      cancel(){
-          this.$emit('cancel',false);
+import axios from "../../axios-request.js";
+export default {
+  props: ["data"],
+  emits: ["edit-score", "cancel"],
+  data: () => ({
+    studentSelected: null,
+    java: 0,
+    javascript: 0,
+    python: 0,
+    studentsList: [],
+    dialog: true,
+    htmlcss: 0,
+    laravel: 0,
+    php: 0,
+    scoreID: "",
+    imageURL: "http://127.0.0.1:8000/storage/images/",
+  }),
+  methods: {
+    getAllStudent() {
+      axios.get("/students").then((res) => {
+        this.studentsList = res.data;
+      });
+    },
+    updateScore() {
+      let editScore = {
+        student_id: this.studentSelected.id,
+        java: this.java,
+        javascript: this.javascript,
+        python: this.python,
+        htmlcss: this.htmlcss,
+        laravel: this.laravel,
+        php: this.php,
+      };
+      if (this.studentSelected != null) {
+        this.$emit("edit-score", this.scoreID, editScore, false);
       }
     },
-    mounted() {
-        this.studentSelected = this.data.student.first_name
-        this.java = this.data.java;
-        this.javascript = this.data.javascript;
-        this.python = this.data.python;
-        this.htmlcss = this.data.htmlcss;
-        this.laravel = this.data.laravel;
-        this.php = this.data.php;
-        this.scoreID = this.data.id;
-      this.getAllStudent();
+    cancel() {
+      this.$emit("cancel", false);
     },
-  }
+  },
+  mounted() {
+    this.studentSelected = this.data.student.first_name;
+    this.java = this.data.java;
+    this.javascript = this.data.javascript;
+    this.python = this.data.python;
+    this.htmlcss = this.data.htmlcss;
+    this.laravel = this.data.laravel;
+    this.php = this.data.php;
+    this.scoreID = this.data.id;
+    this.getAllStudent();
+  },
+};
 </script>
 
 <style scoped>
-  h1{
-      margin-left: 18%;
-  }
-  
-  .create-user-btn {
-    top: 85vh;
-    float: right;
-    position: fixed;
-  }
+h1 {
+  margin-left: 18%;
+}
 
-  form{
-    padding: 15px;
-  }
+.create-user-btn {
+  top: 85vh;
+  float: right;
+  position: fixed;
+}
 
-  .selected, input[type=number]{
-    width: 100%;
-    background: rgba(191, 190, 190, 0.809);
-    border-radius: 2px;
-    height: 35px;
-    padding: 0 5px;
-    color: rgb(49, 47, 47);
-    margin-bottom: 10px;
-    border: none;
-  }
+form {
+  padding: 15px;
+}
 
-  .t-input{
-    display: flex;
-  }
+.selected,
+input[type="number"] {
+  width: 100%;
+  background: rgba(191, 190, 190, 0.809);
+  border-radius: 2px;
+  height: 35px;
+  padding: 0 5px;
+  color: rgb(49, 47, 47);
+  margin-bottom: 10px;
+  border: none;
+}
 
-  .s-student{
-    padding: 10px;
-  }
+.t-input {
+  display: flex;
+}
 
-  .left,
-  .right{
-    padding: 10px;
-    width: 50%;
-  }
+.s-student {
+  padding: 10px;
+}
 
+.left,
+.right {
+  padding: 10px;
+  width: 50%;
+}
 </style>

@@ -36,17 +36,19 @@ class DiscipleController extends Controller
      * @return Renderable
      */
     public function store(Request $request): JsonResponse
-    {   
+    {
         $discipleDetails = $request->only([
             'student_id',
             'dateWn',
             'type',
             'description'
         ]);
-        return response()->json([
+        return response()->json(
+            [
                 'message' => 'Disciple created',
                 'data' => $this->discipleRepository->createDisciple($discipleDetails)
-            ], Response::HTTP_CREATED
+            ],
+            Response::HTTP_CREATED
         );
     }
 
@@ -98,5 +100,4 @@ class DiscipleController extends Controller
             'message' => 'Disciple deleted'
         ], Response::HTTP_NO_CONTENT);
     }
-
 }

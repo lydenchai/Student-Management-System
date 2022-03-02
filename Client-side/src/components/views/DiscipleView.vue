@@ -5,7 +5,7 @@
     <disciple-form  @add-disciple="getAllDisciple" v-if="role != 'STUDENT'"></disciple-form>
     <disciple-card>
       <v-container>
-        <v-dialog v-model="dialogDelete" max-width="480px">
+        <v-dialog v-model="dialogDelete" max-width="490px">
           <v-card >
             <br>
             <v-card-title class="red--text">Are you sure you want to delete this Discipline?</v-card-title><br>
@@ -95,266 +95,264 @@
 </template>
 
 <script>
-  import axios from '../../axios-request.js'
-  import DialogEdit from '../disciple/DialogEditDisciple.vue';
-  import DiscipleForm from '../disciple/DiscipleForm.vue'
-  import moment from "moment";
-  export default {
-    components:{
-      'edit-disciple': DialogEdit,
-      'disciple-form': DiscipleForm,
+import axios from "../../axios-request.js";
+import DialogEdit from "../disciple/DialogEditDisciple.vue";
+import DiscipleForm from "../disciple/DiscipleForm.vue";
+import moment from "moment";
+export default {
+  components: {
+    "edit-disciple": DialogEdit,
+    "disciple-form": DiscipleForm,
+  },
+  data: () => ({
+    imageURL: "http://127.0.0.1:8000/storage/images/",
+    update_disc: false,
+    dialogDelete: false,
+    student: null,
+    description: null,
+    discipleID: null,
+    dateWn: null,
+    type: null,
+    studentList: [],
+    discipleList: [],
+    discInfo: "",
+    userInfo: "",
+    studentID: "",
+    role: "",
+    userID: "",
+    noData: "No data on discipline",
+  }),
+  methods: {
+    updateDis(disciple) {
+      this.discInfo = disciple;
+      this.update_disc = true;
     },
-    data: () =>  ({
-        imageURL: "http://127.0.0.1:8000/storage/images/",
-        update_disc: false,
-        dialogDelete: false,
-        student: null,
-        description: null,
-        discipleID: null,
-        dateWn: null,
-        type: null,
-        studentList: [],
-        discipleList: [],
-        discInfo: '',
-        userInfo: '',
-        studentID: '',
-        role: '',
-        userID: '',
-        noData:"No data on discipline"
-    }),
-    methods: {
-      updateDis(disciple){
-        this.discInfo = disciple;
-        this.update_disc = true;
-      },
-      EditDisc(id, updateDiscipleItem, isFalse){
-        console.log(id);
-        axios.put('/disciples/'+ id, updateDiscipleItem).then(res=>{
-          console.log(res.data);
-          this.update_disc = isFalse;
-          this.getAllDisciple();
-        })
-      },
-      cancel(isFalse){
+    EditDisc(id, updateDiscipleItem, isFalse) {
+      console.log(id);
+      axios.put("/disciples/" + id, updateDiscipleItem).then((res) => {
+        console.log(res.data);
         this.update_disc = isFalse;
-      },
-      getAllDisciple(){
-        this.getUser();
-        axios.get('/disciples').then(res=>{
-          let store = res.data.data;
-          if(this.role == "STUDENT"){
-            for(let i of store){
-              if(this.studentID == i.student_id){
-                this.discipleList.push(i)
-              }
-            }  
-          }else{
-            this.discipleList = res.data.data;
-          } 
-        })
-      },
-      getAllStudent(){
-        axios.get('/students').then(res=>{
-          this.studentList = res.data
-          console.log(res.data);
-        }) 
-      },
-      deleteItem(id){
-        this.dialogDelete = true;
-        this.discipleID = id;
-      },
-      closeDelete(){
-        this.dialogDelete = false;
-      },
-      deleteItemConfirm(){
-        axios.delete('/disciples/'+ this.discipleID).then(res=>{
-          console.log(res.data);
-          this.closeDelete();
-          this.getAllDisciple();
-        })
-      },
-      getGoodDatetimeFormat(datetime) {
-        return moment(String(datetime)).format("DD-MMM-Y");
-      },
-      getUser(){
-        axios.get('/getUserByID/'+ this.userID).then(res=>{
-          this.userInfo = res.data;
-          this.studentID = res.data.student_id;
-        })
-      }
+        this.getAllDisciple();
+      });
     },
-    mounted() {
-      this.role = localStorage.getItem("UserRole");
-      this.userID = localStorage.getItem('UserID');
-      this.getAllDisciple();
+    cancel(isFalse) {
+      this.update_disc = isFalse;
+    },
+    getAllDisciple() {
       this.getUser();
+      axios.get("/disciples").then((res) => {
+        let store = res.data.data;
+        if (this.role == "STUDENT") {
+          for (let i of store) {
+            if (this.studentID == i.student_id) {
+              this.discipleList.push(i);
+            }
+          }
+        } else {
+          this.discipleList = res.data.data;
+        }
+      });
     },
-  }
-  
+    getAllStudent() {
+      axios.get("/students").then((res) => {
+        this.studentList = res.data;
+        console.log(res.data);
+      });
+    },
+    deleteItem(id) {
+      this.dialogDelete = true;
+      this.discipleID = id;
+    },
+    closeDelete() {
+      this.dialogDelete = false;
+    },
+    deleteItemConfirm() {
+      axios.delete("/disciples/" + this.discipleID).then((res) => {
+        console.log(res.data);
+        this.closeDelete();
+        this.getAllDisciple();
+      });
+    },
+    getGoodDatetimeFormat(datetime) {
+      return moment(String(datetime)).format("DD-MMM-Y");
+    },
+    getUser() {
+      axios.get("/getUserByID/" + this.userID).then((res) => {
+        this.userInfo = res.data;
+        this.studentID = res.data.student_id;
+      });
+    },
+  },
+  mounted() {
+    this.role = localStorage.getItem("UserRole");
+    this.userID = localStorage.getItem("UserID");
+    this.getAllDisciple();
+    this.getUser();
+  },
+};
 </script>
 
 <style scoped>
+section {
+  margin-top: 10px;
+}
 
-  section{
-    margin-top: 10px;
-  }
+.details {
+  height: auto;
+  background: #ffffff;
+  width: 100%;
+}
 
-  .details{
-    height: auto;
-    background: #ffffff;
-    width: 100%;
-  }
+.detail-info {
+  display: flex;
+  float: right;
+}
 
-  .detail-info{
-    display: flex;
-    float: right;
-  }
+.text-info {
+  width: 50%;
+  box-sizing: border-box;
+}
 
-  .text-info{
-    width: 50%;
-    box-sizing: border-box;
-  }
+.reason {
+  width: 50%;
+  box-sizing: border-box;
+}
 
-  .reason{
-    width: 50%;
-    box-sizing: border-box;
-  }
+.card-body {
+  margin-left: 0%;
+}
 
-  .card-body{
-    margin-left: 0%;
-  }
+.card {
+  height: 15vh;
+  background: #eceff1;
+  box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
+}
 
-  .card{
-    height: 15vh;
-    background: #ECEFF1;
-    box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
-  }
+#card {
+  width: 98%;
+}
 
-  #card{
-    width: 98%;
-  }
+.title {
+  width: 100%;
+  margin-left: -1%;
+}
 
-  .title{
-    width: 100%;
-    margin-left: -1%;
-  }
+.t {
+  margin-top: 3%;
+}
 
-  .t{
-    margin-top: 3%;
-  }
+.search {
+  margin-right: -1%;
+  width: 12.8%;
+}
 
-  .search{
-    margin-right: -1%;
-    width: 12.8%;
-  }
+.btn {
+  margin-left: 60%;
+}
 
-  .btn {
-    margin-left: 60%;
-  }
+.img-and-name {
+  width: 30%;
+  display: flex;
+  margin-left: 2%;
+}
 
-  .img-and-name{
-    width: 30%;
-    display: flex;
-    margin-left: 2%;
-  }
+.date-time {
+  width: 20%;
+  height: 100%;
+  margin-left: 20%;
+  margin-top: -0%;
+  align-items: center;
+}
+.type {
+  width: 15%;
+  margin-left: -5%;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  margin-top: 0%;
+}
+.action {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  width: 10%;
+  justify-content: flex-start;
+  margin-left: 80%;
+  margin-top: -0.5%;
+}
 
-  .date-time{
-    width: 20%;
-    height:100%;
-    margin-left: 20%;
-    margin-top: -0%;
-    align-items: center;
-  }
-  .type{
-    width: 15%;
-    margin-left: -5%;
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    margin-top: 0%;
-  }
-  .action{
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    width: 10%;
-    justify-content: flex-start;
-    margin-left: 80%;
-    margin-top: -0.5%;
-  }
+.imgp {
+  display: flex;
+  margin: 0px;
+}
 
-  .imgp{
-    display: flex;
-    margin: 0px;
-  }
+.w,
+.p {
+  margin: 10px;
+}
 
+.w {
+  margin-top: 50%;
+  margin-left: -1%;
+}
 
-  .w,
-  .p{
-    margin: 10px;
-  }
+.p {
+  margin-left: 75%;
+}
 
-  .w{
-    margin-top: 50%;
-    margin-left: -1%;
-  }
+img {
+  width: 100px;
+  height: 105px;
+  margin-top: 2%;
+}
 
-  .p{
-    margin-left: 75%;
-  }
+.name {
+  width: 300px;
+  height: auto;
+  margin-top: 45px;
+}
 
-  img{
-    width: 100px;
-    height: 105px;
-    margin-top: 2%;
-  }
+.u-name {
+  display: flex;
+  width: 1000px;
+  height: 30px;
+  text-transform: uppercase;
+  margin-left: 30%;
+}
 
-  .name{
-    width: 300px;
-    height: auto;
-    margin-top: 45px;
-  }
+.class {
+  width: 150px;
+  height: 30px;
+  margin-left: 30%;
+}
 
-  .u-name{
-    display: flex;
-    width: 1000px;
-    height: 30px;
-    text-transform: uppercase;
-    margin-left: 30%;
-  }
+.hidden-xs-only {
+  margin-left: 2%;
+}
 
-  .class{
-    width: 150px;
-    height: 30px;
-    margin-left: 30%;
-  }
+.create-user-btn {
+  top: 85vh;
+  float: right;
+  position: fixed;
+}
 
-  .hidden-xs-only{
-    margin-left: 2%;
-  }
+form {
+  padding: 15px;
+}
 
-  .create-user-btn {
-    top: 85vh;
-    float: right;
-    position: fixed;
-  }
+.selected,
+input[type="date"] {
+  width: 100%;
+  background: rgba(191, 190, 190, 0.809);
+  border-radius: 2px;
+  height: 35px;
+  padding: 0 5px;
+  color: rgb(49, 47, 47);
+  margin-bottom: 10px;
+  border: none;
+}
 
-  form{
-    padding: 15px;
-  }
-
-  .selected, input[type=date]{
-    width: 100%;
-    background: rgba(191, 190, 190, 0.809);
-    border-radius: 2px;
-    height: 35px;
-    padding: 0 5px;
-    color: rgb(49, 47, 47);
-    margin-bottom: 10px;
-    border: none;
-  }
-
-  #action-btn{
-    margin-bottom: 20px;
-  }
+#action-btn {
+  margin-bottom: 20px;
+}
 </style>

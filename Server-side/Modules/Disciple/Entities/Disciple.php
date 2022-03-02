@@ -12,8 +12,8 @@ class Disciple extends Model
 
     protected $fillable = [
         'student_id',
-        'dateWn', 
-        'type', 
+        'dateWn',
+        'type',
         'description'
     ];
 
@@ -21,13 +21,14 @@ class Disciple extends Model
         'created_at',
         'updated_at'
     ];
-    
+
     protected static function newFactory()
     {
         return \Modules\Disciple\Database\factories\DiscipleFactory::new();
     }
-    
-    public function Student(){
+
+    public function Student()
+    {
         return $this->belongsTo(Student::class);
     }
 }

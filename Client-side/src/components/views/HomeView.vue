@@ -79,156 +79,153 @@
 </template>
 
 <style  scoped>
+.home-page {
+  background-image: url("../../assets/lV9LYT.jpg");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  height: 100vh;
+}
 
-    .home-page{
-        background-image: url('../../assets/lV9LYT.jpg');
-        background-position: center;
-        background-size: cover;
-        display: flex;
-        height: 100vh;
-    }  
+.text {
+  color: #fff;
+  margin-left: 12%;
+  margin-top: 18%;
+}
 
-    .text{
-        color: #fff;
-        margin-left: 12%;
-        margin-top: 18%;
-    }
-    
-    .tt{
-        margin-top: 4%;
-        margin-left: -1%;
-    }
+.tt {
+  margin-top: 4%;
+  margin-left: -1%;
+}
 
-    button{
-        margin: 10px;
-        width: 180px;
-        height: 50px;
-        border: none;
-        outline: none;
-        margin-left: 23%;
-        margin-top: 5%;
-        font-size: 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        background: #FBC02D;
-    }
+button {
+  margin: 10px;
+  width: 180px;
+  height: 50px;
+  border: none;
+  outline: none;
+  margin-left: 23%;
+  margin-top: 5%;
+  font-size: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #fbc02d;
+}
 
+.free {
+  padding: 1px;
+  height: 67px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  background: rgba(26, 26, 26, 0.981);
+}
 
-    .free{
-        padding:1px;
-        height: 67px;
-        display: flex;
-        text-align: center;
-        justify-content: center;
-        background: rgba(26, 26, 26, 0.981);
-    }
+.ab {
+  margin-top: 15px;
+}
 
-    .ab{
-        margin-top: 15px;
-    }
+h3 {
+  margin-top: 10px;
+  color: #fff;
+}
 
-    h3{
-        margin-top: 10px;
-        color: #fff;
-    }
+.country {
+  display: flex;
+}
 
-    .country{
-        display: flex;
-    }
+.for-country {
+  height: 40vh;
+  width: 100%;
+}
 
-    .for-country{
-        height: 40vh;
-        width: 100%;
-    }
+.btn,
+.c-text {
+  display: flex;
+}
 
-    .btn,
-    .c-text{
-        display: flex;
-    }
+#c-text {
+  display: flex;
+}
 
-    #c-text{
-        display: flex;
-    }
-    
-    .pnp,
-    .pnc,
-    .pnv{
-        width: 33%;
-        align-items: center;
-        justify-content: center;
-        display: flex;
-    }
+.pnp,
+.pnc,
+.pnv {
+  width: 33%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
 
-    #pnp,
-    #pnc,
-    #pnv{
-        width: 33%;
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        margin: 15px;
-    }
+#pnp,
+#pnc,
+#pnv {
+  width: 33%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin: 15px;
+}
 
-    .c,
-    .p,
-    .v{
-        width: 33%;
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        margin: 15px;
-    }
+.c,
+.p,
+.v {
+  width: 33%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin: 15px;
+}
 
-    img{
-        width: 150px;
-        height: 80px;
-    }
+img {
+  width: 150px;
+  height: 80px;
+}
 
-    .in-contact{
-        width: 100%;
-        display: flex;
-        background: rgba(26, 26, 26, 0.981);
-    }
+.in-contact {
+  width: 100%;
+  display: flex;
+  background: rgba(26, 26, 26, 0.981);
+}
 
-    #all-in-contact{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        display: flex;
-    }
+#all-in-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
 
-    #about-us,
-    #get-in-touch,
-    #social-media{
-        margin: 30px;
-    }
+#about-us,
+#get-in-touch,
+#social-media {
+  margin: 30px;
+}
 
-    #about-us{
-        width: 33%;
-    }
+#about-us {
+  width: 33%;
+}
 
-    #get-in-touch{
-        width: 33%;
-    }
+#get-in-touch {
+  width: 33%;
+}
 
-    .social-media{
-        width: 33%;
-    }
+.social-media {
+  width: 33%;
+}
 
-    .social > a > i {
-        padding: 10px;
-        font-size: 40px;
-        color: rgb(41, 198, 219);
-    }
+.social > a > i {
+  padding: 10px;
+  font-size: 40px;
+  color: rgb(41, 198, 219);
+}
 
-    footer{
-        height: 40px;
-        display: flex;
-        color: #ffff;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-        background: rgb(41, 198, 219);
-    }
-
+footer {
+  height: 40px;
+  display: flex;
+  color: #ffff;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background: rgb(41, 198, 219);
+}
 </style>

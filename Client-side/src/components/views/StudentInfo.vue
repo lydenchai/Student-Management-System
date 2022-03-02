@@ -286,260 +286,262 @@
 </template>
 
 <script>
-    import axios from "../../axios-request.js";
-    import moment from "moment";
-    export default {
-        data: () => ({
-            imageURL: "http://127.0.0.1:8000/storage/images/",
-            student_list: [],
-            searchStudentname:'',
-            studentID: '',
-            studentInfo: '',
-            perEachStudentList: [],
-            perList: [],
-            discEachStudentList: [],
-            numOfPermissions: '0',
-            numOfDisciples: '0',
-            isPermission: true,
-            isDisciple: false,
-            isScore: false,
-            terminate: false,
-            listScore: [],
-            userID: '',
-            nodata: "No data on Permission",
-            noDiscipledata:"No data on discipline",
-        }),
-        methods: {
-            showPer(){
-                this.isPermission = true;
-                this.isDisciple = false;
-                this.isScore = false;
-            },
-            showDisc(){
-                this.isPermission = false;
-                this.isDisciple = true;
-                this.isScore = false;
-            },
-            showScore(){
-                this.isPermission = false;
-                this.isDisciple = false;
-                this.isScore = true;
-            },
-            getGoodDatetimeFormat(datetime) {
-                return moment(String(datetime)).format("DD-MMM-Y");
-            },
-            back(){
-                this.$emit('back', false);
-            },
-            getNumD(){
-                for(let i in this.perEachStudentList){
-                    this.numOfPermissions++;
-                    console.log(i);
-                }
-                for(let u of this.discEachStudentList){
-                    this.numOfDisciples++;
-                    if(u.type == 'Termination'){
-                        this.terminate = true;
-                    }
-                }
-            },
-            getStudentInfo(){
-                axios.get('/students/'+ this.studentID).then(res=>{
-                    this.studentInfo = res.data;
-                    this.perEachStudentList = res.data.permission;
-                    this.discEachStudentList = res.data.disciple;
-                    this.listScore = res.data.score;
-                    console.log(res.data);
-                    this.getNumD();
-                })
-            },
-        },
-        mounted() {
-            this.userID = localStorage.getItem('UserID');
-            axios.get('/getUserByID/'+this.userID).then(res=>{
-                this.studentID = res.data.student_id;
-                console.log(res.data);
-                this.getStudentInfo();
-            })
-            this.getNumD();
-        },
-    }
+import axios from "../../axios-request.js";
+import moment from "moment";
+export default {
+  data: () => ({
+    imageURL: "http://127.0.0.1:8000/storage/images/",
+    student_list: [],
+    searchStudentname: "",
+    studentID: "",
+    studentInfo: "",
+    perEachStudentList: [],
+    perList: [],
+    discEachStudentList: [],
+    numOfPermissions: "0",
+    numOfDisciples: "0",
+    isPermission: true,
+    isDisciple: false,
+    isScore: false,
+    terminate: false,
+    listScore: [],
+    userID: "",
+    nodata: "No data on Permission",
+    noDiscipledata: "No data on discipline",
+  }),
+  methods: {
+    showPer() {
+      this.isPermission = true;
+      this.isDisciple = false;
+      this.isScore = false;
+    },
+    showDisc() {
+      this.isPermission = false;
+      this.isDisciple = true;
+      this.isScore = false;
+    },
+    showScore() {
+      this.isPermission = false;
+      this.isDisciple = false;
+      this.isScore = true;
+    },
+    getGoodDatetimeFormat(datetime) {
+      return moment(String(datetime)).format("DD-MMM-Y");
+    },
+    back() {
+      this.$emit("back", false);
+    },
+    getNumD() {
+      for (let i in this.perEachStudentList) {
+        this.numOfPermissions++;
+        console.log(i);
+      }
+      for (let u of this.discEachStudentList) {
+        this.numOfDisciples++;
+        if (u.type == "Termination") {
+          this.terminate = true;
+        }
+      }
+    },
+    getStudentInfo() {
+      axios.get("/students/" + this.studentID).then((res) => {
+        this.studentInfo = res.data;
+        this.perEachStudentList = res.data.permission;
+        this.discEachStudentList = res.data.disciple;
+        this.listScore = res.data.score;
+        console.log(res.data);
+        this.getNumD();
+      });
+    },
+  },
+  mounted() {
+    this.userID = localStorage.getItem("UserID");
+    axios.get("/getUserByID/" + this.userID).then((res) => {
+      this.studentID = res.data.student_id;
+      console.log(res.data);
+      this.getStudentInfo();
+    });
+    this.getNumD();
+  },
+};
 </script>
 
 <style scoped>
+#cardItem {
+  width: 75.5%;
+  margin-left: 10%;
+  margin-top: 7px;
+}
 
-    #cardItem{
-        width: 75.5%;
-        margin-left: 10%;
-        margin-top: 7px;
-    }
+#dd {
+  margin-left: -2%;
+}
 
-    #dd{
-        margin-left: -2%;
-    }
+.tb {
+  background: #37474f;
+  box-shadow: 0px 3px 8px 1px rgba(148, 146, 146, 0.768);
+}
 
-    .tb{
-        background: #37474F;
-        box-shadow: 0px 3px 8px 1px rgba(148, 146, 146, 0.768);
-    }
+.v-toolbar {
+  width: 75.5%;
+  margin-left: 10%;
+}
 
-    .v-toolbar{
-        width: 75.5%;
-        margin-left: 10%;
-    }
+.btn {
+  width: 80px;
+  height: 5vh;
+  border-radius: 5px;
+}
 
-    .btn{
-        width: 80px;
-        height: 5vh;
-        border-radius: 5px;
-    }
+.detail-card {
+  margin-top: 10px;
+  width: 75%;
+  height: 18vh;
+  border-radius: 3px;
+  display: flex;
+  margin-left: 10%;
+  background: rgb(255, 255, 255);
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.25);
+}
 
-    .detail-card{
-        margin-top: 10px;
-        width: 75%;
-        height: 18vh;
-        border-radius: 3px;
-        display: flex;
-        margin-left: 10%;
-        background: rgb(255, 255, 255);
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.25);
-    }
+.detail {
+  background: rgb(255, 255, 255);
+}
 
-    .detail{
-        background: rgb(255, 255, 255);
-    }
+.profile {
+  width: 20%;
+}
 
-    .profile{
-        width: 20%;
-    }
+.name {
+  margin-top: 2.5%;
+  margin-left: 5%;
+}
 
-    .name{
-        margin-top: 2.5%;
-        margin-left: 5%;
-    }
+.name,
+.class,
+.school {
+  width: 25%;
+  margin-top: 5px;
+}
 
-    .name,
-    .class,
-    .school{
-        width: 25%;
-        margin-top: 5px;
-    }
+.class,
+.school {
+  margin-top: -5%;
+}
 
-    .class,
-    .school{
-        margin-top: -5%;
-    } 
+.schooll {
+  margin-top: -2%;
+}
 
-    .schooll{
-        margin-top: -2%;
-    }
-    
-    img{
-        width: 110px;
-        height: 120px;
-        margin-left: 5%;
-        margin-top: 4%;
-    }
+img {
+  width: 110px;
+  height: 120px;
+  margin-left: 5%;
+  margin-top: 4%;
+}
 
-    .sign{
-        margin-left: 30px;
-    }
+.sign {
+  margin-left: 30px;
+}
 
-    .date, .days{
-        margin-right: 40px;
-    }
+.date,
+.days {
+  margin-right: 40px;
+}
 
-    .tb{
-        background: #37474F;
-        box-shadow: 0px 3px 8px 1px rgba(148, 146, 146, 0.768);
-    }
+.tb {
+  background: #37474f;
+  box-shadow: 0px 3px 8px 1px rgba(148, 146, 146, 0.768);
+}
 
-    table{
-        border-collapse: collapse;
-        border: 1px solid #000;
-        width: 100%;
-    }
-    th, tr, td{
-        border: 1px solid rgb(8, 8, 8);
-        color: black;
-        text-align: center;
-        padding: 4.5px;
-    }
+table {
+  border-collapse: collapse;
+  border: 1px solid #000;
+  width: 100%;
+}
+th,
+tr,
+td {
+  border: 1px solid rgb(8, 8, 8);
+  color: black;
+  text-align: center;
+  padding: 4.5px;
+}
 
-    th{
-        background: rgb(58, 202, 255);
-        color: #fff;
-        font-size: 20px;
-    }
+th {
+  background: rgb(58, 202, 255);
+  color: #fff;
+  font-size: 20px;
+}
 
-    .gradeA{
-        background: rgb(36, 233, 108);
-        color: #000;
-        width: 10%;
-        border: none;
-        outline: none;
-    }
-    .gradeE{
-        background: rgb(233, 187, 36);
-        color: #000;
-        width: 10%;
-        border: none;
-        outline: none;
-    }
-    .gradeF{
-        background: rgb(255, 43, 43);
-        color: #000;
-        width: 10%;
-        border: none;
-        outline: none;
-    }
+.gradeA {
+  background: rgb(36, 233, 108);
+  color: #000;
+  width: 10%;
+  border: none;
+  outline: none;
+}
+.gradeE {
+  background: rgb(233, 187, 36);
+  color: #000;
+  width: 10%;
+  border: none;
+  outline: none;
+}
+.gradeF {
+  background: rgb(255, 43, 43);
+  color: #000;
+  width: 10%;
+  border: none;
+  outline: none;
+}
 
-    .gradea{
-        color: rgb(225, 67, 67);
-        width: 10%;
-        border: none;
-        outline: none;
-    }
-    .gradeb{
-        color: rgb(187, 59, 72);
-        width: 10%;
-        border: none;
-        outline: none;
-    }
-    .graded{
-        color: rgb(71, 235, 84);
-        width: 10%;
-        border: none;
-        outline: none;
-    }
-    .gradec{
-        color: rgb(184, 58, 58);
-        width: 10%;
-        border: none;
-        outline: none;
-    }
-    .gradee{
-        color: rgb(32, 110, 255);
-        width: 10%;
-        border: none;
-        outline: none;
-    }
-    .gradef{
-        color: rgb(0, 0, 0);
-        width: 10%;
-        border: none;
-        outline: none;
-    }
+.gradea {
+  color: rgb(225, 67, 67);
+  width: 10%;
+  border: none;
+  outline: none;
+}
+.gradeb {
+  color: rgb(187, 59, 72);
+  width: 10%;
+  border: none;
+  outline: none;
+}
+.graded {
+  color: rgb(71, 235, 84);
+  width: 10%;
+  border: none;
+  outline: none;
+}
+.gradec {
+  color: rgb(184, 58, 58);
+  width: 10%;
+  border: none;
+  outline: none;
+}
+.gradee {
+  color: rgb(32, 110, 255);
+  width: 10%;
+  border: none;
+  outline: none;
+}
+.gradef {
+  color: rgb(0, 0, 0);
+  width: 10%;
+  border: none;
+  outline: none;
+}
 
-    .grade1{
-        width: 10%;
-    }
+.grade1 {
+  width: 10%;
+}
 
-    .total{
-        background: rgb(255, 255, 255);
-        font-weight: bold;
-        font-size: 20px;
-    }
+.total {
+  background: rgb(255, 255, 255);
+  font-weight: bold;
+  font-size: 20px;
+}
 </style>
