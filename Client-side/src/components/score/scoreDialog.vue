@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" width="400" transition="dialog-top-transition">
       <v-card>
         <form>
-          <h1>Students Score</h1> <br>
+          <h1>Update Score</h1> <br>
           <div class="s-student">
             <v-combobox label="Choose a student" v-model="studentSelected" :items="studentsList" item-text="first_name">
               <template v-slot:item="data">
@@ -102,8 +102,8 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  margin-left: 18%;
+h1{
+  text-align: center;
 }
 
 .create-user-btn {

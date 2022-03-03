@@ -23,7 +23,7 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function createAndUpdate(Request $request)
     {
         $request->validate([
             'first_name' => 'required',
@@ -33,19 +33,28 @@ class StudentController extends Controller
             'gender' => 'required',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999'
         ]);
-        $request->file('image')->store('public/images');
-        $student = new Student();
+        $id = request('id');
+        if ($id) {
+            $student = Student::findOrFail($id);
+            $status = 200;
+            $message = 'Updated';
+        } else {
+            $student = new Student();
+            $request->file('image')->store('public/images');
+            $student->image = $request->file('image')->hashName();
+            $status = 201;
+            $message = "Created";
+        }
         $student->first_name = $request->first_name;
         $student->last_name = $request->last_name;
         $student->class = $request->class;
         $student->phone = $request->phone;
         $student->gender = $request->gender;
-        $student->image = $request->file('image')->hashName();
         $student->save();
         return response()->json([
-            'Message' => 'Created',
+            'Message' => $message,
             'data' => $student,
-        ], 201);
+        ], $status);
     }
 
     /**
@@ -57,35 +66,6 @@ class StudentController extends Controller
     public function show($id)
     {
         return Student::with('permission', 'disciple', 'score')->findOrFail($id);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'class' => 'required',
-            'phone' => 'required',
-            'gender' => 'required',
-        ]);
-        $student = Student::findOrFail($id);
-        $student->first_name = $request->first_name;
-        $student->last_name = $request->last_name;
-        $student->class = $request->class;
-        $student->phone = $request->phone;
-        $student->gender = $request->gender;
-        $student->save();
-        return response()->json([
-            'Message' => 'Updated',
-            'data' => $student
-        ], 200);
     }
 
     /**

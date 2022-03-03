@@ -32,6 +32,5 @@ Route::get('students/{id}', [StudentController::class, 'show']);
 Route::get('/searchStudent/search/{studentname}', [StudentController::class, 'searchStudent']);
 
 // Private route
-Route::post('students', [StudentController::class, 'store']);
-Route::put('students/{id}', [StudentController::class, 'update']);
+Route::post('students', [StudentController::class, 'createAndUpdate']);
 Route::delete('students/{id}', [StudentController::class, 'destroy']);

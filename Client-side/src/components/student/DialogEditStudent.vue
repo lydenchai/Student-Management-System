@@ -43,13 +43,14 @@ export default {
     },
     editStudent() {
       let editStudent = {
+        id: this.id,
         first_name: this.first_name,
         last_name: this.last_name,
         class: this.getClass,
         phone: this.phone,
         gender: this.sex,
       };
-      this.$emit("update", this.id, editStudent, false);
+      this.$emit("update", editStudent, false);
     },
   },
   mounted() {

@@ -105,7 +105,7 @@ export default {
 .login-page {
   height: 100vh;
   width: 100%;
-  background-image: url("../../assets/river.jpg");
+  /* background-image: url("../../assets/river.jpg"); */
   background-position: center;
   background-size: cover;
   display: flex;
@@ -117,7 +117,7 @@ export default {
 
 form {
   background: rgb(255, 255, 255);
-  box-shadow: 0px 4px 8px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 8px 8px rgba(0, 0, 0, 0.083);
   height: 40vh;
   width: 75%;
   align-items: center;

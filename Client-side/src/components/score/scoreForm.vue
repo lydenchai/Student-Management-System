@@ -6,7 +6,7 @@
       </template>
       <v-card>
         <form>
-          <h1>Students Score</h1> <br>
+          <h1>Create Score</h1> <br>
           <div class="s-student">
             <v-combobox label="Choose a student" v-model="studentSelected" :items="studentsList" item-text="first_name">
               <template v-slot:item="data">
@@ -124,7 +124,7 @@ export default {
 
 <style scoped>
 h1 {
-  margin-left: 18%;
+  text-align: center;
 }
 
 .create-user-btn {

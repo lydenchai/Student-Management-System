@@ -98,8 +98,8 @@ export default {
       this.update_student = true;
       this.studentInfo = students;
     },
-    UpdateStudent(id, editStudent, isFalse) {
-      axios.put("/students/" + id, editStudent).then((res) => {
+    UpdateStudent( editStudent, isFalse) {
+      axios.post("/students/", editStudent).then((res) => {
         console.log(res.data);
         this.update_student = isFalse;
         this.getStudents();
