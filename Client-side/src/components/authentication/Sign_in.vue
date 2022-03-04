@@ -105,7 +105,7 @@ export default {
 .login-page {
   height: 100vh;
   width: 100%;
-  /* background-image: url("../../assets/river.jpg"); */
+  background-image: url("../../assets/river.jpg");
   background-position: center;
   background-size: cover;
   display: flex;

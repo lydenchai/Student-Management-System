@@ -40,6 +40,7 @@
                   <v-icon class="white--text">mdi-alert-decagram</v-icon>
                   <v-list-item-title class="white--text" id="p">Disciples</v-list-item-title>
                 </v-tab>
+                <v-tabs-slider color="#F9A825"></v-tabs-slider>
                 <v-tab>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
