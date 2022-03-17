@@ -6,13 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Modules\Score\Entitites\Score;
 use Illuminate\Contracts\Support\Renderable;
 use Score\Interface\ScoreRepositoryInterface;
 
 class ScoreController extends Controller
 {
-    private ScoreRepositoryInterface $ScoreRepository;
+    private ScoreRepositoryInterface $scoreRepository;
 
     public function __construct(ScoreRepositoryInterface $scoreRepository)
     {

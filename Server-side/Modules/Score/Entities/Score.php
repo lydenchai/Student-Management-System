@@ -25,11 +25,6 @@ class Score extends Model
         'updated_at'
     ];
 
-    protected static function newFactory()
-    {
-        return \Modules\Score\Database\factories\ScoreFactory::new();
-    }
-
     public function student()
     {
         return $this->belongsTo(Student::class);

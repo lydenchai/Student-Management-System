@@ -23,11 +23,6 @@ class Permission extends Model
         'updated_at'
     ];
 
-    protected static function newFactory()
-    {
-        return \Modules\Permission\Database\factories\PermissionFactory::new();
-    }
-
     public function student()
     {
         return $this->belongsTo(Student::class);

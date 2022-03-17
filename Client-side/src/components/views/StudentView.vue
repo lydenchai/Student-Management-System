@@ -8,29 +8,26 @@
     <div v-else>
       <v-container>
         <template>
+          <v-toolbar flat>
+            <v-toolbar-title>Students</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-card-title >
+              <v-text-field @keyup="searchStudent" v-model="searchStudentname" class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details></v-text-field> 
+            </v-card-title>
+            <v-dialog v-model="dialogDelete" max-width="480px" transition="dialog-top-transition">
+              <v-card>
+                <br>
+                <v-card-title class="red--text">Are you sure you want to remove this student?</v-card-title><br>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn id="action-btn" class="hvr-grow" depressed color="primary" @click="dialogDelete = false">Cancel</v-btn>
+                  <v-btn id="action-btn" class="hvr-grow" depressed color="error" @click="deleteItemConfirm">YES</v-btn>
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-toolbar>
           <v-data-table :headers="headers" :items="student_list" sort-by="calories" class="elevation-1" :loading="loading" loading-text="Loading... Please wait">
-            <template v-slot:top>
-              <v-toolbar flat>
-                <v-toolbar-title>Students</v-toolbar-title>
-                <v-divider class="mx-4" inset vertical></v-divider>
-                <v-spacer></v-spacer>
-                <v-dialog v-model="dialogDelete" max-width="480px" transition="dialog-top-transition">
-                  <v-card>
-                    <br>
-                    <v-card-title class="red--text">Are you sure you want to remove this student?</v-card-title><br>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn id="action-btn" class="hvr-grow" depressed color="primary" @click="dialogDelete = false">Cancel</v-btn>
-                      <v-btn id="action-btn" class="hvr-grow" depressed color="error" @click="deleteItemConfirm">YES</v-btn>
-                      <v-spacer></v-spacer>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-                <v-card-title >
-                  <v-text-field @keyup="searchStudent" v-model="searchStudentname" class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details></v-text-field> 
-                </v-card-title>
-              </v-toolbar>
-            </template>
             <template v-slot:item.actions="{ item }">
               <v-icon small style="font-size: 20px" color="#1E88E5" class="hvr-grow" @click="editItem(item)">mdi-pencil</v-icon>
               <v-icon small style="font-size: 20px" color="#EF5350" class="hvr-grow" @click="deleteItem(item)"> mdi-delete </v-icon>

@@ -56,7 +56,7 @@
                     <td>{{ score.laravel }}</td>
                     <td>{{ score.java }}</td>  
                     <td>{{ Math.ceil(( score.htmlcss + score.javascript + score.python +  score.php + score.laravel + score.java ) / 6) }}</td>
-                    <td v-if="(( score.htmlcss + score.javascript + score.python +  score.php + score.laravel + score.java ) / 6) == 99">A+</td>
+                    <td v-if="(( score.htmlcss + score.javascript + score.python +  score.php + score.laravel + score.java ) / 6) > 95" class="red--text">A+</td>
                     <td v-else-if="(( score.htmlcss + score.javascript + score.python +  score.php + score.laravel + score.java ) / 6) > 89" class="red--text">A</td>
                     <td v-else-if="(( score.htmlcss + score.javascript + score.python +  score.php + score.laravel + score.java ) / 6) > 79" class="orange--text">B</td>
                     <td v-else-if="(( score.htmlcss + score.javascript + score.python +  score.php + score.laravel + score.java ) / 6) > 69" class="green--text">C</td>

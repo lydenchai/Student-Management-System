@@ -1,15 +1,15 @@
 <template>
    <v-app class="">
-       <div class="home-page">
-           <div class="text">
-                <h1>Welcome to our application</h1><br>
-                <span class="tt">
-                    Passerelles numériques is a non-profit organization under <br>  French law,
-                    created in 2005, operating in three Asian countries: <br> 
-                    Cambodia, the Philippines and Vietnam.
-                </span><br>
-                <button class="hvr-grow"><a href="#about" style="color:#fff; text-decoration: none;">About us</a></button>
-           </div>
+        <div class="home-page">
+            <div class="text">
+              <h1>Welcome to our application</h1><br>
+              <span class="tt">
+                  Passerelles numériques is a non-profit organization under <br>  French law,
+                  created in 2005, operating in three Asian countries: <br> 
+                  Cambodia, the Philippines and Vietnam.
+              </span>
+              <button class="hvr-grow"><a href="#about" style="color:#fff; text-decoration: none;">About us</a></button>
+            </div>
         </div>
         <div id="about" class="free">
             <h3 class="ab">Our value such as  Trust  Responsibility Solidarity Respect Demanding approach</h3>
@@ -82,10 +82,10 @@
 .home-page {
   background-image: url("../../assets/lV9LYT.jpg");
   background-position: center;
-  background-size: cover;
+  background-size: cover; 
   display: flex;
   height: 100vh;
-}
+} 
 
 .text {
   color: #fff;
@@ -118,7 +118,7 @@ button {
   display: flex;
   text-align: center;
   justify-content: center;
-  background: rgba(26, 26, 26, 0.981);
+  background: rgba(0, 0, 0, 0.981);
 }
 
 .ab {
@@ -185,7 +185,7 @@ img {
 .in-contact {
   width: 100%;
   display: flex;
-  background: rgba(26, 26, 26, 0.981);
+  background: rgba(0, 0, 0, 0.981);
 }
 
 #all-in-contact {

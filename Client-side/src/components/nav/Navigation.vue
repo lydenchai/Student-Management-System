@@ -3,7 +3,7 @@
     <div class="navbar">
         <v-toolbar>
             <v-tabs grow class="blue lighten-1">
-               <template class="circle">
+                <template class="circle">
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">
                       <v-img height="50" width="50" v-bind="attrs" v-on="on" :src="imageURL + userAction.image" class="rounded-circle"></v-img>

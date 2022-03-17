@@ -83,16 +83,13 @@ export default {
         laravel: this.laravel,
         java: this.java,
       };
-      axios
-        .post("/score", newScore)
-        .then((res) => {
-          this.$emit("add-score", res.data);
-          this.dialog = false;
-        })
-        .catch((error) => {
-          console.log(error);
-          this.errorMessage = "Oops! You must fill in all fields";
-        });
+      axios.post("/score", newScore).then((res) => {
+        this.$emit("add-score", res.data);
+        this.dialog = false;
+      }).catch((error) => {
+        console.log(error);
+        this.errorMessage = "Oops! You must fill in all fields";
+      });
       this.htmlcss = "";
       this.javascript = "";
       this.python = "";

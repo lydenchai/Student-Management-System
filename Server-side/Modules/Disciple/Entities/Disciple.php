@@ -16,16 +16,11 @@ class Disciple extends Model
         'type',
         'description'
     ];
-
+    
     protected $hidden = [
         'created_at',
         'updated_at'
     ];
-
-    protected static function newFactory()
-    {
-        return \Modules\Disciple\Database\factories\DiscipleFactory::new();
-    }
 
     public function Student()
     {

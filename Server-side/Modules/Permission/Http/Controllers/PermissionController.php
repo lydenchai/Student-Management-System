@@ -6,13 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Modules\Permission\Entitites\Permission;
 use Illuminate\Contracts\Support\Renderable;
 use Permission\Interface\PermissionRepositoryInterface;
 
 class PermissionController extends Controller
 {
-    private PermissionRepositoryInterface $PermissionRepository;
+    private PermissionRepositoryInterface $permissionRepository;
 
     public function __construct(PermissionRepositoryInterface $permissionRepository)
     {

@@ -6,63 +6,60 @@
     <edit-user v-if="show_update" :data="userInfo" @update="UpdateUser" @cancel="cancel"></edit-user>
     <div>
       <v-container>
-        <template>
-          <template >
-            <v-toolbar flat>
-              <v-toolbar-title>Users</v-toolbar-title>
-              <v-divider class="mx-4" inset vertical></v-divider>
-              <v-spacer></v-spacer>
-              <v-dialog v-model="dialogDelete" max-width="450px" transition="dialog-top-transition">
-                <v-card>
-                  <br>
-                  <v-card-title class="red--text">Are you sure you want to remove this user?</v-card-title><br>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn id="action-btn" class="hvr-grow" depressed color="primary" @click="dialogDelete = false">Cancel</v-btn>
-                    <v-btn id="action-btn" class="hvr-grow" depressed color="error" @click="deleteItemConfirm">YES</v-btn>
-                    <v-spacer></v-spacer>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-              <v-card-title >
-                <v-text-field class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details @keyup="searchUser" v-model="searchUsername"></v-text-field>
-              </v-card-title>
-            </v-toolbar>
-          </template>
-          <div v-if="userList == ''" class="ms">
-              <br>
-              <h2 >{{noData}}</h2>
-          </div>
-          <v-card v-else color="" green>
-            <v-simple-table>
-              <template v-slot:default>
-                <thead class="blue-grey darken-3">
-                  <th scope="col">No</th>
-                  <th scope="col">Profile</th>
-                  <th scope="col">Username</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Role</th>
-                  <th scope="col">Action</th>
-                </thead>
-                <tbody class="text-center" style="text-align: center; align-items: center;justify-content: center; height:8vh;">
-                  <tr class="data" v-for="(user, index) in userList" :key="index">
-                    <td>{{user.id}}</td>
-                    <td class="img">
-                      <v-img height="45" width="45" style="top:3px" :src="imageURL + user.image" class="pa-7 secondary rounded-circle d-inline-block"></v-img>
-                    </td>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
-                    <td><small>{{ user.role }}</small></td>
-                    <td>
-                      <v-icon mediem color="#1E88E5" style="font-size: 20px" class="hvr-grow" @click="editItem(user)">mdi-pencil</v-icon>
-                      <v-icon mediem color="#EF5350" style="font-size: 20px" class="hvr-grow" @click="deleteItem(user)" v-if="user.role != 'Admin'">mdi-delete</v-icon>
-                    </td>
-                  </tr>
-                </tbody>
-              </template>
-            </v-simple-table>
-          </v-card>
+        <template >
+          <v-toolbar flat>
+            <v-toolbar-title>Users</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-dialog v-model="dialogDelete" max-width="450px" transition="dialog-top-transition">
+              <v-card>
+                <br>
+                <v-card-title class="red--text">Are you sure you want to remove this user?</v-card-title><br>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn id="action-btn" class="hvr-grow" depressed color="primary" @click="dialogDelete = false">Cancel</v-btn>
+                  <v-btn id="action-btn" class="hvr-grow" depressed color="error" @click="deleteItemConfirm">YES</v-btn>
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-card-title >
+              <v-text-field class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details @keyup="searchUser" v-model="searchUsername"></v-text-field>
+            </v-card-title>
+          </v-toolbar>
         </template>
+        <div v-if="userList == ''" class="ms">
+            <br>
+            <h2 >{{noData}}</h2>
+        </div>
+        <v-card v-else color="" green>
+          <v-simple-table>
+            <template v-slot:default>
+              <thead class="blue-grey darken-3">
+                <th scope="col">No</th>
+                <th scope="col">Profile</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Action</th>
+              </thead>
+              <tbody class="text-center" style="text-align: center; align-items: center;justify-content: center; height:8vh;">
+                <tr class="data" v-for="(user, index) in userList" :key="index">
+                  <td>{{user.id}}</td>
+                  <td class="img">
+                    <v-img height="45" width="45" style="top:3px" :src="imageURL + user.image" class="pa-7 secondary rounded-circle d-inline-block"></v-img>
+                  </td>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.email }}</td>
+                  <td><small>{{ user.role }}</small></td>
+                  <td>
+                    <v-icon mediem color="#1E88E5" style="font-size: 20px" class="hvr-grow" @click="editItem(user)">mdi-pencil</v-icon>
+                    <v-icon mediem color="#EF5350" style="font-size: 20px" class="hvr-grow" @click="deleteItem(user)" v-if="user.role != 'Admin'">mdi-delete</v-icon>
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+        </v-card>
       </v-container>
     </div>
   </section>

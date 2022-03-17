@@ -6,13 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Modules\Disciple\Entitites\Disciple;
 use Illuminate\Contracts\Support\Renderable;
 use Disciple\Interface\DiscipleRepositoryInterface;
 
 class DiscipleController extends Controller
 {
-    private DiscipleRepositoryInterface $DiscipleRepository;
+    private DiscipleRepositoryInterface $discipleRepository;
 
     public function __construct(DiscipleRepositoryInterface $discipleRepository)
     {

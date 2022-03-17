@@ -2,7 +2,6 @@
 
 namespace Score\Interface;
 
-
 interface ScoreRepositoryInterface
 {
     public function getAllScores();

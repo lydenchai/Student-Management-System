@@ -263,7 +263,10 @@
                             <tr>
                                 <td class="total">Total</td>
                                 <td>{{ ((score.htmlcss + score.javascript + score.python + score.php + score.laravel + score.java)) }}</td>
-                                <div v-if="((score.htmlcss + score.javascript + score.python + score.php + score.laravel + score.java)/6) > 89">
+                                <div v-if="((score.htmlcss + score.javascript + score.python + score.php + score.laravel + score.java)/6) > 95">
+                                    <td class="gradea">A+</td>
+                                </div>
+                                <div v-else-if="((score.htmlcss + score.javascript + score.python + score.php + score.laravel + score.java)/6) > 89">
                                     <td class="gradea">A</td>
                                 </div>
                                 <div v-else-if="((score.htmlcss + score.javascript + score.python + score.php + score.laravel + score.java)/6) > 79">
