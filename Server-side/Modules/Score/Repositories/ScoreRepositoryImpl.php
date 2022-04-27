@@ -10,32 +10,32 @@ use Score\Interface\ScoreRepositoryInterface;
 class ScoreRepositoryImpl implements ScoreRepositoryInterface
 {
     //To view all the data
-    public function getAllScores()
+    public function all()
     {
         return Score::with('student')->latest()->get();
     }
 
     //Store the data
-    public function createScore(array $scoreDetails)
+    public function save(array $data)
     {
-        return Score::create($scoreDetails);
+        return Score::create($data);
     }
 
     //Get an individual record
-    public function getScoreById($scoreId)
+    public function find($id)
     {
-        return Score::findOrFail($scoreId);
+        return Score::findOrFail($id);
     }
 
     //Update the data
-    public function updateScore($scoreId, array $newDetails)
+    public function update($id, array $newData)
     {
-        return Score::whereId($scoreId)->update($newDetails);
+        return Score::whereId($id)->update($newData);
     }
 
     //Delete the data
-    public function deleteScore($scoreId)
+    public function delete($id)
     {
-        Score::destroy($scoreId);
+        Score::destroy($id);
     }
 }

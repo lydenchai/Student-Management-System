@@ -25,7 +25,7 @@ class DiscipleController extends Controller
     public function index(): JsonResponse
     {
         return response()->json([
-            'data' => $this->discipleRepository->getAllDisciples()
+            'data' => $this->discipleRepository->all()
         ]);
     }
 
@@ -35,17 +35,24 @@ class DiscipleController extends Controller
      * @return Renderable
      */
     public function store(Request $request): JsonResponse
-    {
-        $discipleDetails = $request->only([
+    {   
+        $request->validate([
+            'student_id' => 'required',
+            'date' => 'required',
+            'type' => 'required',
+            'description' => 'required'
+        ]);
+        $data = $request->only([
             'student_id',
-            'dateWn',
+            'date',
             'type',
             'description'
         ]);
+        
         return response()->json(
             [
                 'message' => 'Disciple created',
-                'data' => $this->discipleRepository->createDisciple($discipleDetails)
+                'data' => $this->discipleRepository->save($data)
             ],
             Response::HTTP_CREATED
         );
@@ -58,10 +65,10 @@ class DiscipleController extends Controller
      */
     public function show(Request $request): JsonResponse
     {
-        $discipleId = $request->route('id');
+        $id = $request->route('id');
 
         return response()->json([
-            'data' => $this->discipleRepository->getDiscipleById($discipleId)
+            'data' => $this->discipleRepository->find($id)
         ]);
     }
 
@@ -73,16 +80,23 @@ class DiscipleController extends Controller
      */
     public function update(Request $request): JsonResponse
     {
-        $discipleId = $request->route('id');
-        $discipleDetails = $request->only([
+        $id = $request->route('id');
+        $request->validate([
+            'student_id' => 'required',
+            'date' => 'required',
+            'type' => 'required',
+            'description' => 'required'
+        ]);
+        $data = $request->only([
             'student_id',
-            'dateWn',
+            'date',
             'type',
             'description'
         ]);
+
         return response()->json([
             'message' => "Disciple updated",
-            'data' => $this->discipleRepository->updateDisciple($discipleId, $discipleDetails)
+            'data' => $this->discipleRepository->update($id, $data)
         ]);
     }
 
@@ -93,10 +107,9 @@ class DiscipleController extends Controller
      */
     public function destroy(Request $request): JsonResponse
     {
-        $discipleId = $request->route('id');
-        $this->discipleRepository->deleteDisciple($discipleId);
-        return response()->json([
-            'message' => 'Disciple deleted'
-        ], Response::HTTP_NO_CONTENT);
+        $id = $request->route('id');
+        $this->discipleRepository->delete($id);
+
+        return response()->json(Response::HTTP_NO_CONTENT);
     }
 }

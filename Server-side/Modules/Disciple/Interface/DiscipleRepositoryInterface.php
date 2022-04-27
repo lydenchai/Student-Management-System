@@ -4,9 +4,9 @@ namespace Disciple\Interface;
 
 interface DiscipleRepositoryInterface
 {
-    public function getAllDisciples();
-    public function createDisciple(array $discipleDetails);
-    public function getDiscipleById($discipleId);
-    public function updateDisciple($discipleId, array $newDetails);
-    public function deleteDisciple($discipleId);
+    public function all();
+    public function save(array $data);
+    public function find($id);
+    public function update($id, array $newData);
+    public function delete($id);
 }

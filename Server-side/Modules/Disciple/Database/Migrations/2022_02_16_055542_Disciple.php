@@ -16,7 +16,7 @@ class Disciple extends Migration
         Schema::create('disciples', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained()->onDelete('CASCADE');
-            $table->string('dateWn');
+            $table->string('date');
             $table->string('type');
             $table->string('description');
             $table->timestamps();

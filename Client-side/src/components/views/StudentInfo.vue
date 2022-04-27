@@ -70,13 +70,13 @@
                             <div class="sign">
                                 <v-icon style="font-size: 40px">mdi-pill</v-icon>
                             </div>
-                            <span class="date">{{item.startAt}} to {{item.endAt}}</span><br><br>
+                            <span class="date">{{item.star_tAt}} to {{item.end_At}}</span><br><br>
                             <div class="days">
                                 <div v-if="item.type === 'Unauthorize' ">
-                                    <strong style="margin-left: 4%">Amount: </strong><span v-html="Math.round(((new Date(item.endAt)).getTime() - (new Date(item.startAt)).getTime()) / (1000 * 3600 * 24))" ></span> <span>days</span>
+                                    <strong style="margin-left: 4%">Amount: </strong><span v-html="Math.round(((new Date(item.end_At)).getTime() - (new Date(item.start_At)).getTime()) / (1000 * 3600 * 24))" ></span> <span>days</span>
                                 </div>
                                 <div v-else>
-                                    <strong>Amount: </strong><span v-html="Math.round(((new Date(item.endAt)).getTime() - (new Date(item.startAt)).getTime()) / (1000 * 3600 * 24))" ></span> <span>days</span>
+                                    <strong>Amount: </strong><span v-html="Math.round(((new Date(item.end_At)).getTime() - (new Date(item.start_At)).getTime()) / (1000 * 3600 * 24))" ></span> <span>days</span>
                                 </div>
                             </div>
                             <div>
@@ -108,7 +108,7 @@
                             <strong v-if="item.type === 'Oral warning'" class="blue--text">{{item.type}}</strong>
                             <v-icon v-if="item.type === 'Notation'" class="black--text" style="font-size: 40px">mdi-alert-box</v-icon>
                             <strong v-if="item.type === 'Notation'" class="black--text">{{item.type}}</strong>
-                            <span>{{getGoodDatetimeFormat(item.dateWn)}}</span><br><br>
+                            <span>{{getGoodDatetimeFormat(item.date)}}</span><br><br>
                         </v-expansion-panel-header>
                         <v-expansion-panel-content class="detail">
                             <strong>Reasons:</strong><br>{{item.description}}

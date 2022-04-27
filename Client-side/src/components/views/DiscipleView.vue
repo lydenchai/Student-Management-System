@@ -58,7 +58,7 @@
                 </div>
                 <div class="date-time">
                   <v-col class="text-no-wrap" cols="5" sm="3">
-                    <span><small>{{getGoodDatetimeFormat(disciple.dateWn)}}</small></span> 
+                    <span><small>{{getGoodDatetimeFormat(disciple.date)}}</small></span> 
                   </v-col>
                 </div>
                 <div class="type">
@@ -79,7 +79,7 @@
                   <strong>First name:</strong> {{disciple.student.first_name}}<br>
                   <strong>Last name:</strong>  {{disciple.student.last_name}} <br>
                   <strong>Class:</strong> {{ disciple.student.class }} <br>
-                  <strong>Date:</strong> {{getGoodDatetimeFormat(disciple.dateWn)}} <br> 
+                  <strong>Date:</strong> {{getGoodDatetimeFormat(disciple.date)}} <br> 
                 </div>   
                 <div class="reason">
                   <strong>Discipline type:</strong> {{disciple.type}} <br>
@@ -111,7 +111,7 @@ export default {
     student: null,
     description: null,
     discipleID: null,
-    dateWn: null,
+    date: null,
     type: null,
     studentList: [],
     discipleList: [],

@@ -16,7 +16,7 @@
                   <v-icon class="white--text">mdi-home</v-icon>
                   <v-list-item-title class="white--text" id="p">Home</v-list-item-title>
                 </v-tab>
-                <v-tab :to="{ path: '/user' }" v-if="userAction.role == 'Admin'">
+                <v-tab :to="{ path: '/user' }" v-if="userAction.role == 'ADMIN'">
                   <v-icon class="white--text">mdi-account</v-icon>
                   <v-list-item-title class="white--text" id="p">Users</v-list-item-title>  
                 </v-tab>

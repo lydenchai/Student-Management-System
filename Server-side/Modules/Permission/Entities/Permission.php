@@ -12,8 +12,8 @@ class Permission extends Model
 
     protected $fillable = [
         'student_id',
-        'startAt',
-        'endAt',
+        'start_At',
+        'end_At',
         'type',
         'description'
     ];

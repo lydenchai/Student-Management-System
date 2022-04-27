@@ -52,9 +52,9 @@
                   <v-chip v-if="permission.new" :color="`${permission.student.first_name} lighten-4`" class="ml-0 mr-2 black--text" label small>
                     {{ permission.new }} new
                   </v-chip>
-                  <span><small><v-icon>mdi-timetable</v-icon> {{getGoodDatetimeFormat(permission.startAt)}} to {{getGoodDatetimeFormat(permission.endAt)}}</small></span><br><br>
+                  <span><small><v-icon>mdi-timetable</v-icon> {{getGoodDatetimeFormat(permission.start_At)}} to {{getGoodDatetimeFormat(permission.end_At)}}</small></span><br><br>
                   <div>
-                    <small v-html="Math.round(((new Date(permission.endAt)).getTime() - (new Date(permission.startAt)).getTime()) / (1000 *  3600 * 24))" ></small><span>days</span>
+                    <small v-html="Math.round(((new Date(permission.endAt)).getTime() - (new Date(permission.start_At)).getTime()) / (1000 *  3600 * 24))" ></small><span>days</span>
                   </div>
                 </v-col>
               </div>
@@ -82,8 +82,8 @@
               <div class="text-info">
                 <strong>Student name:</strong> {{permission.student.first_name}} {{permission.student.last_name}} <br>
                 <strong>Class:</strong> {{ permission.student.class }} <br>
-                <strong>Start date:</strong> {{getGoodDatetimeFormat(permission.startAt)}} <br>
-                <strong>End date:</strong> {{getGoodDatetimeFormat(permission.endAt)}} <br>
+                <strong>Start date:</strong> {{getGoodDatetimeFormat(permission.start_At)}} <br>
+                <strong>End date:</strong> {{getGoodDatetimeFormat(permission.end_At)}} <br>
               </div>
               <div class="reason">
                 <strong>Permission type:</strong> {{permission.type}} <br>
@@ -115,8 +115,8 @@ export default {
     permissions: [],
     perId: null,
     student: null,
-    startAt: null,
-    endAt: null,
+    start_At: null,
+    end_At: null,
     type: null,
     description: null,
     perInfo: "",

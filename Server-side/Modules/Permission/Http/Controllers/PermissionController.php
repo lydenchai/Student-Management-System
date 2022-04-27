@@ -25,7 +25,7 @@ class PermissionController extends Controller
     public function index(): JsonResponse
     {
         return response()->json([
-            'data' => $this->permissionRepository->getAllPermissions()
+            'data' => $this->permissionRepository->all()
         ]);
     }
 
@@ -35,18 +35,26 @@ class PermissionController extends Controller
      * @return Renderable
      */
     public function store(Request $request): JsonResponse
-    {
-        $permissionDetails = $request->only([
+    {   
+        $request->validate([
+            'student_id' => 'required',
+            'start_At' => 'required',
+            'end_At' => 'required',
+            'type' => 'required',
+            'description' => 'required',
+        ]);
+        $data = $request->only([
             'student_id',
-            'startAt',
-            'endAt',
+            'start_At',
+            'end_At',
             'type',
             'description',
         ]);
+        
         return response()->json(
             [
                 'message' => 'Permission created',
-                'data' => $this->permissionRepository->createPermission($permissionDetails)
+                'data' => $this->permissionRepository->save($data)
             ],
             Response::HTTP_CREATED
         );
@@ -59,10 +67,10 @@ class PermissionController extends Controller
      */
     public function show(Request $request): JsonResponse
     {
-        $permissionId = $request->route('id');
+        $id = $request->route('id');
 
         return response()->json([
-            'data' => $this->permissionRepository->getPermissionById($permissionId)
+            'data' => $this->permissionRepository->find($id)
         ]);
     }
 
@@ -74,17 +82,24 @@ class PermissionController extends Controller
      */
     public function update(Request $request): JsonResponse
     {
-        $permissionId = $request->route('id');
-        $permissionDetails = $request->only([
+        $id = $request->route('id');
+        $request->validate([
+            'student_id' => 'required',
+            'start_At' => 'required',
+            'end_At' => 'required',
+            'type' => 'required',
+            'description' => 'required',
+        ]);
+        $data = $request->only([
             'student_id',
-            'startAt',
-            'endAt',
+            'start_At',
+            'end_At',
             'type',
             'description',
         ]);
         return response()->json([
             'message' => "Permission updated",
-            'data' => $this->permissionRepository->updatePermission($permissionId, $permissionDetails)
+            'data' => $this->permissionRepository->update($id, $data)
         ]);
     }
 
@@ -95,10 +110,9 @@ class PermissionController extends Controller
      */
     public function destroy(Request $request): JsonResponse
     {
-        $permissionId = $request->route('id');
-        $this->permissionRepository->deletePermission($permissionId);
-        return response()->json([
-            'message' => 'Permission deleted'
-        ], Response::HTTP_NO_CONTENT);
+        $id = $request->route('id');
+        $this->permissionRepository->delete($id);
+
+        return response()->json(Response::HTTP_NO_CONTENT);
     }
 }

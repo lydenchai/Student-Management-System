@@ -25,7 +25,7 @@ class ScoreController extends Controller
     public function index(): JsonResponse
     {
         return response()->json([
-            'data' => $this->scoreRepository->getAllScores()
+            'data' => $this->scoreRepository->all()
         ]);
     }
 
@@ -36,7 +36,7 @@ class ScoreController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $scoreDetails = $request->only([
+        $data = $request->only([
             'student_id',
             'htmlcss',
             'javascript',
@@ -45,10 +45,11 @@ class ScoreController extends Controller
             'laravel',
             'java',
         ]);
+        
         return response()->json(
             [
                 'message' => 'Score created',
-                'data' => $this->scoreRepository->createScore($scoreDetails)
+                'data' => $this->scoreRepository->save($data)
             ],
             Response::HTTP_CREATED
         );
@@ -61,10 +62,10 @@ class ScoreController extends Controller
      */
     public function show(Request $request): JsonResponse
     {
-        $scoreId = $request->route('id');
+        $id = $request->route('id');
 
         return response()->json([
-            'data' => $this->scoreRepository->getScoreById($scoreId)
+            'data' => $this->scoreRepository->find($id)
         ]);
     }
 
@@ -76,8 +77,8 @@ class ScoreController extends Controller
      */
     public function update(Request $request): JsonResponse
     {
-        $scoreId = $request->route('id');
-        $scoreDetails = $request->only([
+        $id = $request->route('id');
+        $data = $request->only([
             'student_id',
             'htmlcss',
             'javascript',
@@ -86,9 +87,10 @@ class ScoreController extends Controller
             'laravel',
             'java',
         ]);
+        
         return response()->json([
             'message' => "Score updated",
-            'data' => $this->scoreRepository->updateScore($scoreId, $scoreDetails)
+            'data' => $this->scoreRepository->update($id, $data)
         ]);
     }
 
@@ -99,10 +101,8 @@ class ScoreController extends Controller
      */
     public function destroy(Request $request): JsonResponse
     {
-        $scoreId = $request->route('id');
-        $this->scoreRepository->deleteScore($scoreId);
-        return response()->json([
-            'message' => 'Score deleted'
-        ], Response::HTTP_NO_CONTENT);
+        $id = $request->route('id');
+        $this->scoreRepository->delete($id);
+        return response()->json(Response::HTTP_NO_CONTENT);
     }
 }

@@ -8,32 +8,32 @@ use Disciple\Interface\DiscipleRepositoryInterface;
 class DiscipleRepositoryImpl implements DiscipleRepositoryInterface
 {
     //To view all the data
-    public function getAllDisciples()
+    public function all()
     {
         return Disciple::with('student')->latest()->get();
     }
 
     //Store the data
-    public function createDisciple(array $discipleDetails)
+    public function save(array $data)
     {
-        return Disciple::create($discipleDetails);
+        return Disciple::create($data);
     }
 
     //Get an individual record
-    public function getDiscipleById($discipleId)
+    public function find($id)
     {
-        return Disciple::findOrFail($discipleId);
+        return Disciple::findOrFail($id);
     }
 
     //Update the data
-    public function updateDisciple($discipleId, array $newDetails)
+    public function update($id, array $newData)
     {
-        return Disciple::whereId($discipleId)->update($newDetails);
+        return Disciple::whereId($id)->update($newData);
     }
 
     //Delete the data
-    public function deleteDisciple($discipleId)
+    public function delete($id)
     {
-        Disciple::destroy($discipleId);
+        Disciple::destroy($id);
     }
 }

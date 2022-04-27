@@ -10,32 +10,32 @@ use Permission\Interface\PermissionRepositoryInterface;
 class PermissionRepositoryImpl implements PermissionRepositoryInterface
 {
     //To view all the data
-    public function getAllPermissions()
+    public function all()
     {
         return Permission::with('student')->latest()->get();
     }
 
     //Store the data
-    public function createPermission(array $permissionDetails)
+    public function save(array $data)
     {
-        return Permission::create($permissionDetails);
+        return Permission::create($data);
     }
 
     //Get an individual record
-    public function getPermissionById($permissionId)
+    public function find($id)
     {
-        return Permission::findOrFail($permissionId);
+        return Permission::findOrFail($id);
     }
 
     //Update the data
-    public function updatePermission($permissionId, array $newDetails)
+    public function update($id, array $newData)
     {
-        return Permission::whereId($permissionId)->update($newDetails);
+        return Permission::whereId($id)->update($newData);
     }
 
     //Delete the data
-    public function deletePermission($permissionId)
+    public function delete($id)
     {
-        Permission::destroy($permissionId);
+        Permission::destroy($id);
     }
 }

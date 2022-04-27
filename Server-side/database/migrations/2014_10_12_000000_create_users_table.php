@@ -18,9 +18,8 @@ class CreateUsersTable extends Migration
             $table->foreignId('student_id')->onDelete('CASCADE')->unsigned()->nullable();
             $table->string('username');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role');
+            $table->string('role')->nullable();
             $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();

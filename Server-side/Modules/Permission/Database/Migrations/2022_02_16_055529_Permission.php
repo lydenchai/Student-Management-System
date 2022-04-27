@@ -16,8 +16,8 @@ class Permission extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained()->onDelete('CASCADE');
-            $table->string('startAt');
-            $table->string('endAt');
+            $table->string('start_At');
+            $table->string('end_At');
             $table->string('type');
             $table->string('description');
             $table->timestamps();

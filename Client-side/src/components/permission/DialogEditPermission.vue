@@ -17,9 +17,9 @@
             </template>
           </v-combobox>
           <label for="cars">Start Date: </label><br>
-            <input type="date" name="" id="" v-model="startAt"><br>
+            <input type="date" name="" id="" v-model="start_At"><br>
           <label for="cars">End Date: </label><br>
-            <input type="date" name="" id="" v-model="endAt"><br>
+            <input type="date" name="" id="" v-model="end_At"><br>
           <label for="cars">Choose leave type</label>
             <select class="selected" id="cars" v-model="type">f
               <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
@@ -43,8 +43,8 @@ export default {
   data: () => ({
     imageURL: "http://127.0.0.1:8000/storage/images/",
     studentSelected: null,
-    startAt: null,
-    endAt: null,
+    start_At: null,
+    end_At: null,
     type: null,
     description: null,
     leavetype: ["Authorize", "Unauthorize"],
@@ -59,8 +59,8 @@ export default {
     edit() {
       let editPermission = {
         student_id: this.studentSelected.id,
-        startAt: this.startAt,
-        endAt: this.endAt,
+        start_At: this.start_At,
+        end_At: this.end_At,
         type: this.type,
         description: this.description,
       };
@@ -77,7 +77,7 @@ export default {
   mounted() {
     this.getAllStudent();
     this.studentSelected = this.data.student.first_name;
-    this.startAt = this.data.startAt;
+    this.start_At = this.data.start_At;
     this.endAt = this.data.endAt;
     this.type = this.data.type;
     this.description = this.data.description;

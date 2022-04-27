@@ -55,7 +55,7 @@ export default {
     CreateDisciple() {
       let newDisciple = {
         student_id: this.studentSelected.id,
-        dateWn: this.date,
+        date: this.date,
         type: this.type,
         description: this.description,
       };

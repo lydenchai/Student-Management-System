@@ -20,9 +20,9 @@
             </template>
           </v-combobox>
           <label for="cars">Start Date: </label><br>
-            <input type="date" name="" v-model="startAt"><br>
+            <input type="date" name="" v-model="start_At"><br>
           <label for="cars">End Date: </label><br>
-            <input type="date" name="" v-model="endAt"><br>
+            <input type="date" name="" v-model="end_At"><br>
           <label for="cars">Choose leave type</label>
             <select class="selected" id="cars" v-model="type">f
               <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
@@ -45,8 +45,8 @@ export default {
   emits: ["add-permission"],
   data: () => ({
     studentSelected: null,
-    startAt: null,
-    endAt: null,
+    start_At: null,
+    end_At: null,
     type: null,
     description: null,
     imageURL: "http://127.0.0.1:8000/storage/images/",
@@ -59,8 +59,8 @@ export default {
     CreatePermission() {
       let newPermission = {
         student_id: this.studentSelected.id,
-        startAt: this.startAt,
-        endAt: this.endAt,
+        start_At: this.start_At,
+        end_At: this.end_At,
         type: this.type,
         description: this.description,
       };
@@ -77,8 +77,8 @@ export default {
           });
       }
       this.studentSelected = null;
-      this.startAt = "";
-      this.endAt = "";
+      this.start_At = "";
+      this.end_At = "";
       this.type = "";
       this.description = "";
     },
@@ -89,8 +89,8 @@ export default {
         this.editedIndex = -1;
       });
       this.studentSelected = null;
-      this.startAt = "";
-      this.endAt = "";
+      this.start_At = "";
+      this.end_At = "";
       this.type = "";
       this.description = "";
       this.errorMessage = "";

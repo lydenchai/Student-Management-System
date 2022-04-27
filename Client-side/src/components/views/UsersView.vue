@@ -53,7 +53,7 @@
                   <td><small>{{ user.role }}</small></td>
                   <td>
                     <v-icon mediem color="#1E88E5" style="font-size: 20px" class="hvr-grow" @click="editItem(user)">mdi-pencil</v-icon>
-                    <v-icon mediem color="#EF5350" style="font-size: 20px" class="hvr-grow" @click="deleteItem(user)" v-if="user.role != 'Admin'">mdi-delete</v-icon>
+                    <v-icon mediem color="#EF5350" style="font-size: 20px" class="hvr-grow" @click="deleteItem(user)" v-if="user.role != 'ADMIN'">mdi-delete</v-icon>
                   </td>
                 </tr>
               </tbody>

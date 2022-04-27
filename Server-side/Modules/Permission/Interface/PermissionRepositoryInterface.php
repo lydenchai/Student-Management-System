@@ -4,9 +4,9 @@ namespace Permission\Interface;
 
 interface PermissionRepositoryInterface
 {
-    public function getAllPermissions();
-    public function createPermission(array $permissionDetails);
-    public function getPermissionById($permissionId);
-    public function updatePermission($permissionId, array $newDetails);
-    public function deletePermission($permissionId);
+    public function all();
+    public function save(array $data);
+    public function find($id);
+    public function update($id, array $newData);
+    public function delete($id);
 }

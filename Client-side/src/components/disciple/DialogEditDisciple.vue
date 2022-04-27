@@ -20,7 +20,7 @@
               <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
             </select>
             <label for="cars">Start Date: </label><br>
-            <input type="date" name="" id="" v-model="dateWn"><br>
+            <input type="date" name="" id="" v-model="date"><br>
             <v-textarea label="Description" auto-grow outlined v-model="description"></v-textarea>
             <v-card-actions>
               <v-btn color="error" class="hvr-grow" @click="cancel"> Cancel</v-btn>
@@ -41,7 +41,7 @@ export default {
     return {
       imageURL: "http://127.0.0.1:8000/storage/images/",
       studentSelected: null,
-      dateWn: null,
+      date: null,
       type: null,
       description: null,
       leavetype: ["Notation", "Oral warning", "Warning letter", "Termination"],
@@ -55,7 +55,7 @@ export default {
       let updateDiscipleItem = {
         student_id: this.studentSelected.id,
         type: this.type,
-        dateWn: this.dateWn,
+        date: this.date,
         description: this.description,
       };
       this.$emit("update", this.id, updateDiscipleItem, false);
@@ -75,7 +75,7 @@ export default {
     this.studentSelected = this.data.student.first_name;
     this.type = this.data.type;
     this.description = this.data.description;
-    this.dateWn = this.data.dateWn;
+    this.date = this.data.date;
   },
 };
 </script>

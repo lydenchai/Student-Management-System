@@ -4,9 +4,9 @@ namespace Score\Interface;
 
 interface ScoreRepositoryInterface
 {
-    public function getAllScores();
-    public function createScore(array $scoreDetails);
-    public function getScoreById($scoreId);
-    public function updateScore($scoreId, array $newDetails);
-    public function deleteScore($scoreId);
+    public function all();
+    public function save(array $data);
+    public function find($id);
+    public function update($id, array $newData);
+    public function delete($id);
 }

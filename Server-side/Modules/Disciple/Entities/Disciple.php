@@ -12,7 +12,7 @@ class Disciple extends Model
 
     protected $fillable = [
         'student_id',
-        'dateWn',
+        'date',
         'type',
         'description'
     ];
