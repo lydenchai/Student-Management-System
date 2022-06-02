@@ -12,7 +12,7 @@
                 class="input-field" outlined dense white v-model="email" :error-messages="emailErrors" 
                 label="E-mail" :append-icon="'mdi-email'"  required @input="$v.email.$touch()" 
                 @blur="$v.email.$touch()"><v-scpacer>mdi-email</v-scpacer>
-              </v-text-field>
+              </v-text-field><br>
               <v-text-field 
                 class="input-field" outlined dense white v-model="password" :error-messages="passwordErrors" 
                 label="Password" required @input="$v.password.$touch()" @blur="$v.password.$touch()" 
@@ -118,8 +118,8 @@ export default {
 form {
   background: rgb(255, 255, 255);
   box-shadow: 0px 4px 8px 8px rgba(0, 0, 0, 0.083);
-  height: 40vh;
-  width: 75%;
+  height: 50vh;
+  width: 70%;
   align-items: center;
   justify-content: center;
   margin-left: 10%;
@@ -133,7 +133,7 @@ form {
 }
 
 img {
-  width: 30%;
+  width: 25%;
   align-items: center;
   margin-left: 35%;
   margin-top: -20%;

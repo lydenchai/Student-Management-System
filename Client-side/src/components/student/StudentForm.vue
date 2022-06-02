@@ -1,32 +1,29 @@
 <template>
-    <div class="">
-    <v-dialog v-model="dialog" width="500px" transition="dialog-top-transition">
-      <template v-slot:activator="{ on, attrs }" class="create-user-btn">
-        <v-btn color="red darken-1" dark class="hvr-grow" v-bind="attrs" v-on="on" bottom fab fixed right><v-icon class="white--text">mdi-account-plus</v-icon></v-btn>
-      </template>
-      <v-row justify="center" class="a">
-        <v-card ref="form" class="form">
-          <h2 class="c-s">Create Student</h2>
-          <form>
-            <v-text-field prepend-icon="mdi-account" ref="first name" v-model="first_name" label="First Name" required></v-text-field>
-            <v-text-field prepend-icon="mdi-account" ref="last name" v-model="last_name" label="Last Name" required></v-text-field>
-            <v-radio-group v-model="sex" row>
-              <v-radio label="Female" value="Female"></v-radio>
-              <v-radio label="Male" value="Male"></v-radio>
-            </v-radio-group>
-            <v-text-field ref="class" prepend-icon="mdi-school" v-model="getClass" label="Class" required></v-text-field>
-            <v-text-field prepend-icon="mdi-phone-in-talk" ref="phone number" v-model="phone" label="Phone Number" required></v-text-field>
-            <v-file-input prepend-icon="mdi-paperclip" label="Choose image" v-model="image" v-if="showfilInput"></v-file-input>
-            <p>{{ errorMessage }}</p>
-            <v-card-actions>
-              <v-btn color="error" class="hvr-grow" @click="cancelCreate"> Cancel </v-btn>
-              <v-btn color="primary" class="hvr-grow" @click="createStudent"> Create </v-btn>
-            </v-card-actions>
-          </form>            
-        </v-card>
-      </v-row>
-    </v-dialog>
-  </div>
+  <v-dialog v-model="dialog" width="500px" transition="dialog-top-transition">
+    <template v-slot:activator="{ on, attrs }" class="create-user-btn">
+      <v-btn color="red darken-1" dark class="hvr-grow" v-bind="attrs" v-on="on" bottom fab fixed right><v-icon class="white--text">mdi-account-plus</v-icon></v-btn>
+    </template>
+    <v-row justify="center" class="a">
+      <v-card ref="form" class="form">
+        <form>
+          <v-text-field prepend-icon="mdi-account" ref="first name" v-model="first_name" label="First Name" required></v-text-field>
+          <v-text-field prepend-icon="mdi-account" ref="last name" v-model="last_name" label="Last Name" required></v-text-field>
+          <v-radio-group v-model="sex" row>
+            <v-radio label="Female" value="Female"></v-radio>
+            <v-radio label="Male" value="Male"></v-radio>
+          </v-radio-group>
+          <v-text-field ref="class" prepend-icon="mdi-school" v-model="getClass" label="Class" required></v-text-field>
+          <v-text-field prepend-icon="mdi-phone-in-talk" ref="phone number" v-model="phone" label="Phone Number" required></v-text-field>
+          <v-file-input prepend-icon="mdi-paperclip" label="Choose image" v-model="image" v-if="showfilInput"></v-file-input>
+          <p>{{ errorMessage }}</p>
+          <v-card-actions>
+            <v-btn color="error" class="hvr-grow" @click="cancelCreate"> Cancel </v-btn>
+            <v-btn color="primary" class="hvr-grow" @click="createStudent"> Create </v-btn>
+          </v-card-actions>
+        </form>            
+      </v-card>
+    </v-row>
+  </v-dialog>
 </template>
 
 <script>
@@ -97,11 +94,6 @@ export default {
 </script>
 
 <style scoped>
-.c-s {
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-}
 .form {
   width: 100%;
   height: 100%;

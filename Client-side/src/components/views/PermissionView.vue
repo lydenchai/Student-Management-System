@@ -20,8 +20,7 @@
         <strong class="t">Permissions</strong>
         <v-spacer></v-spacer>
       </v-card-title>
-      <div v-if="permissionList == 0">
-        <br>
+      <div class="loadData" v-if="permissionList == 0">
         <h2 class="grey--text" >{{noData}}</h2>
       </div>
       <v-expansion-panels id="card">
@@ -54,7 +53,7 @@
                   </v-chip>
                   <span><small><v-icon>mdi-timetable</v-icon> {{getGoodDatetimeFormat(permission.start_At)}} to {{getGoodDatetimeFormat(permission.end_At)}}</small></span><br><br>
                   <div>
-                    <small v-html="Math.round(((new Date(permission.endAt)).getTime() - (new Date(permission.start_At)).getTime()) / (1000 *  3600 * 24))" ></small><span>days</span>
+                    <span v-html="Math.round(((new Date(permission.end_At)).getTime() - (new Date(permission.start_At)).getTime()) / (1000 *  3600 * 24))" ></span><span> days</span>
                   </div>
                 </v-col>
               </div>
@@ -205,6 +204,9 @@ section {
   margin-top: 2.5vh;
 }
 
+.loadData{
+  text-align: center;
+}
 .card-body {
   margin-left: 0%;
 }
@@ -306,9 +308,9 @@ input[type="date"] {
 }
 
 img {
-  width: 100px;
-  height: 105px;
-  margin-top: 3%;
+  width: 80px;
+  height: 80px;
+  margin-top: 30%;
 }
 
 .name {

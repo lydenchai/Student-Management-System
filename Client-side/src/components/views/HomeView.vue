@@ -50,6 +50,8 @@
                 </div>
             </div>
         </div>
+        <br>
+        <br>
         <div class="in-contact" id="contact">
             <div id="all-in-contact">
                 <div id="about-us">

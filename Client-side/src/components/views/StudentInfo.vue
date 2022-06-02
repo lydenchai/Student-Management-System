@@ -79,7 +79,7 @@
                                     <strong>Amount: </strong><span v-html="Math.round(((new Date(item.end_At)).getTime() - (new Date(item.start_At)).getTime()) / (1000 * 3600 * 24))" ></span> <span>days</span>
                                 </div>
                             </div>
-                            <div>
+                            <div> 
                                 <v-col v-if="item.type === 'Unauthorize' "> 
                                     <strong style="margin-left: 4%" class="red--text" >{{item.type}}</strong>
                                 </v-col>
@@ -436,8 +436,8 @@ export default {
 }
 
 img {
-  width: 110px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   margin-left: 5%;
   margin-top: 4%;
 }

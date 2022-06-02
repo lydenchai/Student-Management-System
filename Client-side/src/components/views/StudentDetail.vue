@@ -428,8 +428,8 @@ export default {
 }
 
 img {
-  width: 110px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   margin-left: -6%;
   margin-top: 4%;
 }

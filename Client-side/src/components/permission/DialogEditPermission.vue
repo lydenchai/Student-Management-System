@@ -1,38 +1,34 @@
 <template>
-  <div class="">
-    <v-dialog v-model="dialog" width="400" transition="dialog-top-transition">
-      <v-card>
-        <br>
-        <h2 class="u-p">Update Permission</h2>
-        <form>
-          <v-combobox label="Choose a student" v-model="studentSelected" :items="studentsList" item-text="first_name">
-            <template v-slot:item="data">
-              <v-list-item-avatar>
-                <img :src="imageURL + data.item.image"/>
-              </v-list-item-avatar>
-              <v-list-item-content>
-                <v-list-item-title v-html=" data.item.first_name + ' ' + data.item.last_name"></v-list-item-title>
-                <v-list-item-subtitle v-html="data.item.class"></v-list-item-subtitle>
-              </v-list-item-content>
-            </template>
-          </v-combobox>
-          <label for="cars">Start Date: </label><br>
-            <input type="date" name="" id="" v-model="start_At"><br>
-          <label for="cars">End Date: </label><br>
-            <input type="date" name="" id="" v-model="end_At"><br>
-          <label for="cars">Choose leave type</label>
-            <select class="selected" id="cars" v-model="type">f
-              <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
-            </select>
-          <v-textarea label="Description" auto-grow outlined row-height="15" v-model="description"></v-textarea>
-          <v-card-actions>
-            <v-btn color="error" class="hvr-grow" @click="cancel"> Cancel</v-btn>
-            <v-btn color="primary" class="hvr-grow" @click="edit">Update</v-btn>
-          </v-card-actions> 
-        </form>
-      </v-card>
-    </v-dialog>
-  </div>
+  <v-dialog v-model="dialog" width="400" transition="dialog-top-transition">
+    <v-card>
+      <form>
+        <v-combobox label="Choose a student" v-model="studentSelected" :items="studentsList" item-text="first_name">
+          <template v-slot:item="data">
+            <v-list-item-avatar>
+              <img :src="imageURL + data.item.image"/>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title v-html=" data.item.first_name + ' ' + data.item.last_name"></v-list-item-title>
+              <v-list-item-subtitle v-html="data.item.class"></v-list-item-subtitle>
+            </v-list-item-content>
+          </template>
+        </v-combobox>
+        <label for="cars">Start Date: </label><br>
+          <input type="date" name="" id="" v-model="start_At"><br>
+        <label for="cars">End Date: </label><br>
+          <input type="date" name="" id="" v-model="end_At"><br>
+        <label for="cars">Choose leave type</label>
+          <select class="selected" id="cars" v-model="type">f
+            <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
+          </select>
+        <v-textarea label="Description" auto-grow outlined row-height="15" v-model="description"></v-textarea>
+        <v-card-actions>
+          <v-btn color="error" class="hvr-grow" @click="cancel"> Cancel</v-btn>
+          <v-btn color="primary" class="hvr-grow" @click="edit">Update</v-btn>
+        </v-card-actions> 
+      </form>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -87,11 +83,6 @@ export default {
 </script>
 
 <style scoped>
-.u-p {
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-}
 .create-user-btn {
   top: 85vh;
   float: right;

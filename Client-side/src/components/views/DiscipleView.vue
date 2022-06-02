@@ -21,8 +21,7 @@
           <strong class="t">Disciples</strong>
           <v-spacer></v-spacer>
         </v-card-title>
-        <div v-if="discipleList == 0">
-          <br>
+        <div class="loadData" v-if="discipleList == 0">
           <h2 class="grey--text">{{noData}}</h2>
         </div>
         <v-expansion-panels id="card">
@@ -34,10 +33,10 @@
                     <v-col cols="4">
                       <div class="imgp">
                         <div class="w">
-                          <v-icon v-if="disciple.type === 'Warning letter'" style="font-size: 60px; margin-top: 15px; color: #FFC107;">mdi-alert</v-icon>
-                          <v-icon v-if="disciple.type === 'Termination'" class="red--text" style="font-size: 60px; margin-top: 15px;">mdi-close-circle</v-icon>
-                          <v-icon v-if="disciple.type === 'Oral warning'" class="blue--text" style="font-size: 60px; margin-top: 15px;">mdi-alert-octagon</v-icon>
-                          <v-icon v-if="disciple.type === 'Notation'" class="black--text" style="font-size: 60px; margin-top: 15px; ">mdi-alert-circle</v-icon>
+                          <v-icon v-if="disciple.type === 'Warning letter'" style="font-size: 50px; margin-top: 10px; color: #FFC107;">mdi-alert</v-icon>
+                          <v-icon v-if="disciple.type === 'Termination'" class="red--text" style="font-size: 50px; margin-top: 10px;">mdi-close-circle</v-icon>
+                          <v-icon v-if="disciple.type === 'Oral warning'" class="blue--text" style="font-size: 50px; margin-top: 10px;">mdi-alert-octagon</v-icon>
+                          <v-icon v-if="disciple.type === 'Notation'" class="black--text" style="font-size: 50px; margin-top: 10px; ">mdi-alert-circle</v-icon>
                         </div>
                         <div class="p">
                           <img :src="imageURL+disciple.student.image" />
@@ -197,6 +196,9 @@ section {
   margin-top: 10px;
 }
 
+.loadData{
+  text-align: center;
+}
 .details {
   height: auto;
   background: #ffffff;
@@ -301,9 +303,9 @@ section {
 }
 
 img {
-  width: 100px;
-  height: 105px;
-  margin-top: 2%;
+  width: 80px;
+  height: 80px;
+  margin-top: 5%;
 }
 
 .name {
